@@ -1,4 +1,4 @@
-# cedilleparser
+# Cedille Parser [![Build Status](https://travis-ci.org/ernius/cedilleparser.svg?branch=master)](https://travis-ci.org/ernius/cedilleparser)
 
 Cedille dependant typed programming language parser
 
