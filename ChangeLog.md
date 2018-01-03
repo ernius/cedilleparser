@@ -1,4 +1,4 @@
-# Revision history for parser-cedille
+# Revision history for cedilleparser
 
 ## 0.1.0.0  -- YYYY-mm-dd
 

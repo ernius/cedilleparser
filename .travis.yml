@@ -1,3 +1,8 @@
 language : haskell
 
 ghc : "8.0.2"
+
+install:
+  - cabal install alex
+  - cabal install happy
+  - cabal install --only-dependencies --enable-tests
