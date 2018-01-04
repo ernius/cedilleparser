@@ -57,3 +57,14 @@ Type -> '{' Term '≃' Term '}'
 
 * Verification of generated asts against previous parser.
 
+* There exist three shift/reduce conflicts, two of them seems to be acceptable, but the following one requires further study.
+
+```
+State 242
+
+	LiftingType -> 'Π' Bvar ':' Type . '.' LiftingType    (rule 95)
+	Tk -> Type .                                          (rule 101)
+
+	'.'            shift, and enter state 243
+			(reduce using rule 101)
+```
