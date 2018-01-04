@@ -25,7 +25,7 @@ Aterm ->  Aterm     Lterm
 Aterm ->  Aterm '-' Lterm
 ```
 
-So terms applications explicitly associates from left to right. Notation: name of grammar variables begin with uppercase, while tokens begin with lowercase or are quoted. Another change is that now the left aterm and the '-' symbol could produce a string without any white spaces in between (equivalent to aterm -> aterm ows maybeErased aterm)
+So terms applications explicitly associates from left to right. Notation: name of grammar variables begin with uppercase, while tokens begin with lowercase or are quoted. Another change implied by the last rule, is that the left `aterm` and the `'-'` symbols could produce a string without any white spaces between them (equivalent to a rule `aterm -> aterm **ows** maybeErased aterm`)
 
 The following kind production rule:
 
