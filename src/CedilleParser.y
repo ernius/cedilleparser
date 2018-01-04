@@ -207,12 +207,13 @@ Type :: { Type }
      | LType '➔' Type                  { TpArrow $1 UnerasedArrow $3                     }
      | LType                            { $1                                              }
      | '{^' Type '^}'                   { NoSpans $2 $3                                   }
+     | '{' Term '≃' Term '}'            { TpEq $2 $4                       } -- reduce/reduce conflict with variables and holes in types and terms without brackets
 
 LType :: { Type } 
       : '↑' var '.' Term ':' LliftingType { Lft $1 (tPos $2) (tStr $2) $4 $6 }
       | LType   '·' Atype                 { TpApp $1 $3                      }
       | LType Lterm                       { TpAppt $1 $2                     }
-      | '{' Term '≃' Term '}'            { TpEq $2 $4                       } -- reduce/reduce conflict with variables and holes in types and terms without brackets
+--    | '{' Term '≃' Term '}'            { TpEq $2 $4                       } -- is it not better here ?
       | Atype                             { $1                               }
 
 Atype :: { Type }
