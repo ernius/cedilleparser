@@ -1,6 +1,6 @@
 # Cedille Parser [![Build Status](https://travis-ci.org/ernius/cedilleparser.svg?branch=master)](https://travis-ci.org/ernius/cedilleparser)
 
-Cedille dependant typed programming language parser
+Implementation of a parser of Cedille, a dependant typed programming language. 
 
 Must review:
 
@@ -25,7 +25,7 @@ Aterm ->  Aterm     Lterm
 Aterm ->  Aterm '-' Lterm
 ```
 
-So terms applications explicitly associates from left to right. Notation: name of grammar variables begin with uppercase, while tokens begin with lowercase or are quoted. Another change implied by the last rule, is that the left `aterm` and the `'-'` symbols could produce a string without any white spaces between them (equivalent to a rule `aterm -> aterm **ows** maybeErased aterm`)
+So terms applications explicitly associates from left to right. Notation: name of grammar variables begin with uppercase, while tokens begin with lowercase or are quoted. Another change implied by the last rule, is that the left `aterm` and the `'-'` symbols could produce a string without any white spaces between them (equivalent to a rule `aterm -> aterm` **ows** `maybeErased aterm`)
 
 The following kind production rule:
 
