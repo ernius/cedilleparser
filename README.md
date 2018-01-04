@@ -1,6 +1,6 @@
 # Cedille Parser [![Build Status](https://travis-ci.org/ernius/cedilleparser.svg?branch=master)](https://travis-ci.org/ernius/cedilleparser)
 
-Implementation of a parser of Cedille, a dependant typed programming language. 
+Implementation of a dependant typed programming language parser (called Cedille).
 
 Must review:
 
