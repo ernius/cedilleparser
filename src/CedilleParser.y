@@ -76,18 +76,6 @@ import CedilleLexer hiding (main)
   '★'        { Token $$ (TSym "★") }  
   
 %%
-
-{-
-
-Must review:
- - White spaces treatment in rules.
- - Reserved words: import, module, as, let, in and several symbols.
- - Some arrows association desambiguation in terms and types.
- - Because of previous point I moved term equality from Type to Ltype grammar variable, in order to allow types equalities at the left of an arrow.
- - Because of a reduce/reduce conflict with variables and holes in types and terms I added brackets to terms equality type.
- - Position information should be converted into a string and verified.
-
--}      
   
 Start :: { Start }
       : Imports 'module' Qvar Params '.' Cmds LineNo { File $2 $1 (tStr $3) $4 $6 $7 }  
