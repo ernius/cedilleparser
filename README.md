@@ -100,3 +100,5 @@ state: 116,	token: 0,	action: fail.
 ```
 
 In the state 12 it reads the arrow symbol as part of a Type (`Type -> LType . '➔' Type` rule (74)) and not of a LiftingType rule (applying a reduce with `Type -> LType` rule (75)).
+
+This two conflicts are related to `LiftingType -> Type '➔' LiftingType` rule.
