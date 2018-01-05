@@ -83,7 +83,7 @@ test_parser_cmd = TestCase (assertEqual "test parser command"
                             (Prelude.Right (DefTermOrType (DefTerm (AlexPn 0 1 1) "cS" (Type (TpArrow (TpVar (AlexPn 5 1 6) "X") UnerasedArrow (TpVar (AlexPn 9 1 10) "X"))) (Lam (AlexPn 14 1 15) KeptLambda (AlexPn 16 1 17) "n" NoClass (Lam (AlexPn 20 1 21) ErasedLambda (AlexPn 22 1 23) "X" NoClass (Lam (AlexPn 26 1 27) KeptLambda (AlexPn 28 1 29) "f" NoClass (Lam (AlexPn 32 1 33) KeptLambda (AlexPn 34 1 35) "a" NoClass (App (Var (AlexPn 38 1 39) "f") NotErased (Parens (AlexPn 40 1 41) (App (App (AppTp (Var (AlexPn 41 1 42) "n") (TpVar (AlexPn 45 1 46) "X")) NotErased (Var (AlexPn 47 1 48) "f")) NotErased (Var (AlexPn 49 1 50) "a")) (AlexPn 50 1 51)))))))) (AlexPn 52 1 53)))
                                (runAlex test_parser_cmd_str $ cmd))
 
--- Study of shift-reduce confict in state 242
+-- Problem shift-reduce confict in state 12 causes it is not correctly parsed
 
 test_parser_liftingtype_str = unlines [
   "    Π a : a . a ➔ ☆   "
@@ -136,22 +136,24 @@ test_list = TestCase (do
                           (runAlex cnt $ cedilleParser)))
 
 tests = TestList [ 
-  --  TestLabel "test lexer"                 test_lexer
+  TestLabel "test lexer"                 test_lexer
   
   --, TestLabel "test atype hole" test_atype_hole 
   --, TestLabel "test atype qvar" test_atype_qvar 
   --, TestLabel "test atype qvar qualified" test_atype_qvar2
   
-  -- , TestLabel "test parser term"           test_parser_term 
-  -- , TestLabel "test parser term defintion" test_parser_deftermtype 
-  -- , TestLabel "test type arrow"            test_type_arrow 
-  -- , TestLabel "test parser command"        test_parser_cmd 
-  -- , TestLabel "test parser cnat module"    test_parser_cnat
-  -- , TestLabel "test cnat.ced"              test_cnat
-  -- , TestLabel "test nat.ced"               test_nat
-  -- , TestLabel "test clist.ced"             test_clist
-  -- , TestLabel "test list.ced"              test_list
-  TestLabel "test lifting type"          test_parser_liftingtype
+  , TestLabel "test parser term"           test_parser_term 
+  , TestLabel "test parser term defintion" test_parser_deftermtype 
+  , TestLabel "test type arrow"            test_type_arrow 
+  , TestLabel "test parser command"        test_parser_cmd 
+  , TestLabel "test parser cnat module"    test_parser_cnat
+  , TestLabel "test cnat.ced"              test_cnat
+  , TestLabel "test nat.ced"               test_nat
+  , TestLabel "test clist.ced"             test_clist
+  , TestLabel "test list.ced"              test_list
+
+  -- shift/reduce conflict problematic test
+  --TestLabel "test lifting type"          test_parser_liftingtype
   ]
 
 main = do
