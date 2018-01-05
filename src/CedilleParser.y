@@ -13,6 +13,7 @@ import CedilleLexer hiding (main)
 %name      maybetype     MaybeCheckType
 %name      deftermtype   DefTermOrType
 %name      cmd           Cmd
+%name      liftingtype   LiftingType
 
 %tokentype { Token }
 %error     { parseError }
@@ -161,7 +162,7 @@ Lterm :: { Term }
 Pterm :: { Term }
       : Qvar                            { Var (tPos $1) (tStr $1)         }
       | '(' Term ')'                    { Parens $1 $2 $3                 } 
-      | Pterm '.num'                    { IotaProj $1 (tStr $2) (tPos $2) } -- shift-reduce conflict with the point of end of command ! solution: create a token '.1' and '.2' 
+      | Pterm '.num'                    { IotaProj $1 (tStr $2) (tPos $2) } -- shift-reduce conflict with the point of end of command (solution: creates a token '.num')
       | '[' Term ',' Term OptTerm ']'   { IotaPair $1 $2 $4 $5 $6         }
       | '●'                             { Hole $1                        }      
 
@@ -187,15 +188,15 @@ Lam :: { (Lam , PosInfo) }
     | 'λ'                               { (KeptLambda  , $1) }
 
 Type :: { Type }
-     : 'Π'    Bvar ':' Tk  '.' Type     { Abs $1 Pi  (tPos $2) (tStr $2) $4 $6 }
-     | '∀'    Bvar ':' Tk  '.' Type     { Abs $1 All (tPos $2) (tStr $2) $4 $6 }
+     : 'Π'    Bvar ':' Tk  '.' Type     { Abs $1 Pi  (tPos $2) (tStr $2) $4 $6            }
+     | '∀'    Bvar ':' Tk  '.' Type     { Abs $1 All (tPos $2) (tStr $2) $4 $6            }
      | 'λ'    Bvar ':' Tk  '.' Type     { TpLambda $1 $3 (tStr $2) $4 $6                  }
      | 'ι'    Bvar OptType '.' Type     { Iota $1 (tPos $2) (tStr $2) $3 $5               }
      | LType '➾' Type                  { TpArrow $1 ErasedArrow   $3                     }
      | LType '➔' Type                  { TpArrow $1 UnerasedArrow $3                     }
      | LType                            { $1                                              }
      | '{^' Type '^}'                   { NoSpans $2 $3                                   }
-     | '{' Term '≃' Term '}'            { TpEq $2 $4                       } -- reduce/reduce conflict with variables and holes in types and terms without brackets
+     | '{' Term '≃' Term '}'            { TpEq $2 $4                                     } -- reduce/reduce conflict with variables and holes in types and terms without brackets
 
 LType :: { Type } 
       : '↑' var '.' Term ':' LliftingType { Lft $1 (tPos $2) (tStr $2) $4 $6 }
