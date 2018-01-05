@@ -62,13 +62,11 @@ Type -> '{' Term '≃' Term '}'
 ```
 State 12
 
-	Type -> LType . '➾' Type                            (rule 73)
-	Type -> LType . '➔' Type                            (rule 74)
+        ...
+	Type -> LType . '➔' Type                           (rule 74)
 	Type -> LType .                                     (rule 75)
-	LType -> LType . '·' Atype                          (rule 79)
-	LType -> LType . Lterm                              (rule 80)
-
-        ....
+        ...
+	
 	'➔'            shift, and enter state 116
 			(reduce using rule 75)
 ```
@@ -96,4 +94,4 @@ state: 116,	token: 53,	action: fail.
 state: 116,	token: 0,	action: fail.
 ```
 
-Basically it reads the arrow symbol as part of a Type and not of a LiftingType.
+Basically in the state 12 it reads the arrow symbol as part of a Type (`Type -> LType . '➔' Type` rule (74)) and not of a LiftingType (by first applying a reduce with rule (75)).
