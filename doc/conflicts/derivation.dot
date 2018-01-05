@@ -1,0 +1,40 @@
+digraph G {
+
+node [shape=plaintext]
+
+LT1 -> {Π;Bvar;":";Type1;".",LT2}	  
+Bvar -> V1 -> a1
+Type1 -> LType1 -> AType1 -> Qvar1 -> V2 -> a2
+
+LT2 -> {Type2,"➔",LT3}
+
+Type2 -> LType2 -> AType2 -> Qvar2 -> V3 -> a3
+
+LT3 -> "LliftingType" -> "☆"
+
+{rank=same;Π,a1,":",a2,".",a3,"➔","☆"}
+
+LT1 [label = "LiftingType"]
+LT2 [label = "LiftingType"]
+LT3 [label = "LiftingType"]
+
+V1  [label = "var"]
+V2  [label = "var"]
+V3  [label = "var"]
+
+Type1 [label = "Type"]
+Type2 [label = "Type"]
+
+LType1 [label = "LType"]
+LType2 [label = "LType"]
+AType1 [label = "AType"]
+AType2 [label = "AType"]
+Qvar1  [label = "Qvar"]
+Qvar2  [label = "Qvar"] 
+
+a1  [label = "a"]
+a2  [label = "a"]
+a3  [label = "a"]
+
+
+}
