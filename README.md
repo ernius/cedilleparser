@@ -1,6 +1,6 @@
 # Cedille Parser [![Build Status](https://travis-ci.org/ernius/cedilleparser.svg?branch=master)](https://travis-ci.org/ernius/cedilleparser)
 
-Implementation of a dependant typed programming language parser (called Cedille).
+Dependant typed programming language (called Cedille) parser.
 
 ## Must review:
 
@@ -8,7 +8,7 @@ Implementation of a dependant typed programming language parser (called Cedille)
 
 * White spaces treatment in rules.
 
-* Some associations disambiguation in terms application and arrow operator in kinds.
+* Some associations grammar disambiguation in terms application and arrow operator in kinds.
 
 For example the following term production rules:
 
