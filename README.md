@@ -6,7 +6,7 @@ Dependant typed programming language (called Cedille) parser.
 
 * Reserved words: **import**, **module**, **as**, **let**, **in** and other several symbols.
 
-* White spaces treatment in rules.
+* White spaces treatment. Avoid spaces treatment in the grammar, discarding them in the lexical phase.
 
 * Some associations grammar disambiguation in terms application and arrow operator in kinds.
 

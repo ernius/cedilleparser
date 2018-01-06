@@ -39,161 +39,271 @@ var = string
 var-bar-11 = string
 var-star-12 = string
 
-mutual
+-- Mutual definitions integration with Haskell test
+-- data Uno : Set
+-- {-# COMPILED_DECLARE_DATA Uno Uno #-}
+-- data Dos : Set
+-- {-# COMPILED_DECLARE_DATA Dos Dos #-}
 
-  data arg : Set where 
-    TermArg : term → arg
-    TypeArg : type → arg
+-- data Uno where
+--   Uno1 : Dos → Uno
+--   Uno2 : Uno  
+-- {-# COMPILED_DATA Uno Uno Uno1 Uno2 #-}
 
-  data args : Set where 
-    ArgsCons : arg → args → args
-    ArgsNil : posinfo → args
+-- data Dos where
+--   Dos1 : Uno → Dos
+--   Dos2 : Dos
+-- {-# COMPILED_DATA Dos Dos Dos1 Dos2 #-}
 
-  data arrowtype : Set where 
-    ErasedArrow : arrowtype
-    UnerasedArrow : arrowtype
+data arg : Set
+{-# COMPILED_DECLARE_DATA arg Arg #-}
+data args : Set
+{-# COMPILED_DECLARE_DATA args Args #-}
+data arrowtype : Set
+{-# COMPILED_DECLARE_DATA arrowtype ArrowType #-}
+data binder : Set
+{-# COMPILED_DECLARE_DATA binder Binder #-}
+data cmd : Set
+{-# COMPILED_DECLARE_DATA cmd Cmd #-}
+data cmds : Set
+{-# COMPILED_DECLARE_DATA cmds Cmds #-}
+data decl : Set
+{-# COMPILED_DECLARE_DATA decl Decl #-}
+data defTermOrType : Set
+{-# COMPILED_DECLARE_DATA defTermOrType DefTermOrTypedecl #-}
+data imports : Set
+{-# COMPILED_DECLARE_DATA imports Imports #-}
+data imprt : Set
+{-# COMPILED_DECLARE_DATA imprt Imprt #-}
+data kind : Set
+{-# COMPILED_DECLARE_DATA kind Kind #-}
+data lam : Set
+{-# COMPILED_DECLARE_DATA lam Lam #-}
+data leftRight : Set
+{-# COMPILED_DECLARE_DATA leftRight LeftRight #-}
+data liftingType : Set
+{-# COMPILED_DECLARE_DATA liftingType LiftingType #-}
+data lterms : Set
+{-# COMPILED_DECLARE_DATA lterms Lterms #-}
+data maybeAtype : Set
+{-# COMPILED_DECLARE_DATA maybeAtype MaybeAtype #-}
+data maybeCheckType : Set
+{-# COMPILED_DECLARE_DATA maybeCheckType MaybeCheckType #-}
+data maybeErased : Set
+{-# COMPILED_DECLARE_DATA maybeErased MaybeErased #-}
+data maybeMinus : Set
+{-# COMPILED_DECLARE_DATA maybeMinus MaybeMinus #-}
+data optAs : Set
+{-# COMPILED_DECLARE_DATA optAs OptAs #-}
+data optClass : Set
+{-# COMPILED_DECLARE_DATA optClass OptClass #-}
+data optTerm : Set
+{-# COMPILED_DECLARE_DATA optTerm OptTerm #-}
+data optType : Set
+{-# COMPILED_DECLARE_DATA optType OptType #-}
+data params : Set
+{-# COMPILED_DECLARE_DATA params Params #-}
+data rho : Set
+{-# COMPILED_DECLARE_DATA rho Rho #-}
+data start : Set
+{-# COMPILED_DECLARE_DATA start Start #-}
+data term : Set
+{-# COMPILED_DECLARE_DATA term Term  #-}
+data theta : Set
+{-# COMPILED_DECLARE_DATA theta Theta  #-}
+data tk : Set
+{-# COMPILED_DECLARE_DATA tk Tk  #-}
+data type : Set
+{-# COMPILED_DECLARE_DATA type Type  #-}
+data vars : Set
+{-# COMPILED_DECLARE_DATA vars Vars  #-}
 
-  data binder : Set where 
-    All : binder
-    Pi : binder
+{-# IMPORT CedilleTypes #-}
 
-  data cmd : Set where 
-    DefKind : posinfo → kvar → params → kind → posinfo → cmd
-    DefTermOrType : defTermOrType → posinfo → cmd
-    ImportCmd : imprt → cmd
+data arg where 
+  TermArg : term → arg
+  TypeArg : type → arg
+{-# COMPILED_DATA arg Arg TermArg TypeArg #-}
 
-  data cmds : Set where 
-    CmdsNext : cmd → cmds → cmds
-    CmdsStart : cmds
+data args where 
+  ArgsCons : arg → args → args
+  ArgsNil : posinfo → args
+{-# COMPILED_DATA args Args ArgsCons ArgsNil #-}
 
-  data decl : Set where 
-    Decl : posinfo → posinfo → bvar → tk → posinfo → decl
+data arrowtype where 
+  ErasedArrow : arrowtype
+  UnerasedArrow : arrowtype
+{-# COMPILED_DATA arrowtype ArrowType ErasedArrow UnerasedArrow #-}
 
-  data defTermOrType : Set where 
-    DefTerm : posinfo → var → maybeCheckType → term → defTermOrType
-    DefType : posinfo → var → kind → type → defTermOrType
+data binder where 
+  All : binder
+  Pi : binder
+{-# COMPILED_DATA binder Binder All Pi #-}
 
-  data imports : Set where 
-    ImportsNext : imprt → imports → imports
-    ImportsStart : imports
+data cmd where 
+  DefKind : posinfo → kvar → params → kind → posinfo → cmd
+  DefTermOrType : defTermOrType → posinfo → cmd
+  ImportCmd : imprt → cmd
+{-# COMPILED_DATA cmd Cmd DefKind DefTermOrType ImportCmd #-}
 
-  data imprt : Set where 
-    Import : posinfo → fpth → optAs → args → posinfo → imprt
+data cmds where 
+  CmdsNext : cmd → cmds → cmds
+  CmdsStart : cmds
+{-# COMPILED_DATA cmds Cmds CmdsNext CmdsStart #-}
 
-  data kind : Set where 
-    KndArrow : kind → kind → kind
-    KndParens : posinfo → kind → posinfo → kind
-    KndPi : posinfo → posinfo → bvar → tk → kind → kind
-    KndTpArrow : type → kind → kind
-    KndVar : posinfo → qkvar → args → kind
-    Star : posinfo → kind
+data decl where 
+  Decl : posinfo → posinfo → bvar → tk → posinfo → decl
+{-# COMPILED_DATA decl Decl Decl #-}
 
-  data lam : Set where 
-    ErasedLambda : lam
-    KeptLambda : lam
+data defTermOrType where 
+  DefTerm : posinfo → var → maybeCheckType → term → defTermOrType
+  DefType : posinfo → var → kind → type → defTermOrType
+{-# COMPILED_DATA defTermOrType DefTermOrType DefTerm DefType #-}
 
-  data leftRight : Set where 
-    Both : leftRight
-    Left : leftRight
-    Right : leftRight
+data imports where 
+  ImportsNext : imprt → imports → imports
+  ImportsStart : imports
+{-# COMPILED_DATA imports Imports ImportsNext ImportsStart #-}
 
-  data liftingType : Set where 
-    LiftArrow : liftingType → liftingType → liftingType
-    LiftParens : posinfo → liftingType → posinfo → liftingType
-    LiftPi : posinfo → bvar → type → liftingType → liftingType
-    LiftStar : posinfo → liftingType
-    LiftTpArrow : type → liftingType → liftingType
+data imprt where 
+  Import : posinfo → fpth → optAs → args → posinfo → imprt
+{-# COMPILED_DATA imprt Imprt Import #-}
 
-  data lterms : Set where 
-    LtermsCons : maybeErased → term → lterms → lterms
-    LtermsNil : posinfo → lterms
+data kind where 
+  KndArrow : kind → kind → kind
+  KndParens : posinfo → kind → posinfo → kind
+  KndPi : posinfo → posinfo → bvar → tk → kind → kind
+  KndTpArrow : type → kind → kind
+  KndVar : posinfo → qkvar → args → kind
+  Star : posinfo → kind
+{-# COMPILED_DATA kind Kind KndArrow KndParens KndPi KndTpArrow KndVar Star #-}  
 
-  data maybeAtype : Set where 
-    Atype : type → maybeAtype
-    NoAtype : maybeAtype
+data lam where 
+  ErasedLambda : lam
+  KeptLambda : lam
+{-# COMPILED_DATA lam Lam ErasedLambda KeptLambda #-}
 
-  data maybeCheckType : Set where 
-    NoCheckType : maybeCheckType
-    Type : type → maybeCheckType
+data leftRight where 
+  Both : leftRight
+  Left : leftRight
+  Right : leftRight
+{-# COMPILED_DATA leftRight LeftRightLam Both Left Right #-}
 
-  data maybeErased : Set where 
-    Erased : maybeErased
-    NotErased : maybeErased
+data liftingType where 
+  LiftArrow : liftingType → liftingType → liftingType
+  LiftParens : posinfo → liftingType → posinfo → liftingType
+  LiftPi : posinfo → bvar → type → liftingType → liftingType
+  LiftStar : posinfo → liftingType
+  LiftTpArrow : type → liftingType → liftingType
+{-# COMPILED_DATA liftingType LiftingType LiftArrow LiftParens LiftPi LiftStar LiftTpArrow #-}
 
-  data maybeMinus : Set where 
-    EpsHanf : maybeMinus
-    EpsHnf : maybeMinus
+data lterms where 
+  LtermsCons : maybeErased → term → lterms → lterms
+  LtermsNil : posinfo → lterms
+{-# COMPILED_DATA lterms Lterms LtermsCons LtermsNil #-}
 
-  data optAs : Set where 
-    NoOptAs : optAs
-    SomeOptAs : var → optAs
+data maybeAtype where 
+  Atype : type → maybeAtype
+  NoAtype : maybeAtype
+{-# COMPILED_DATA maybeAtype MaybeAtype Atype NoAtype #-}  
 
-  data optClass : Set where 
-    NoClass : optClass
-    SomeClass : tk → optClass
+data maybeCheckType where 
+  NoCheckType : maybeCheckType
+  Type : type → maybeCheckType
+{-# COMPILED_DATA maybeCheckType MaybeCheckType NoCheckType Type #-}
 
-  data optTerm : Set where 
-    NoTerm : optTerm
-    SomeTerm : term → posinfo → optTerm
+data maybeErased where 
+  Erased : maybeErased
+  NotErased : maybeErased
+{-# COMPILED_DATA maybeErased MaybeErased Erased NotErased #-}
 
-  data optType : Set where 
-    NoType : optType
-    SomeType : type → optType
+data maybeMinus where 
+  EpsHanf : maybeMinus
+  EpsHnf : maybeMinus
+{-# COMPILED_DATA maybeMinus MaybeMinus EpsHanf EpsHnf #-}
 
-  data params : Set where 
-    ParamsCons : decl → params → params
-    ParamsNil : params
+data optAs where 
+  NoOptAs : optAs
+  SomeOptAs : var → optAs
+{-# COMPILED_DATA optAs OptAs NoOptAs SomeOptAs #-}
 
-  data rho : Set where 
-    RhoPlain : rho
-    RhoPlus : rho
+data optClass where 
+  NoClass : optClass
+  SomeClass : tk → optClass
+{-# COMPILED_DATA optClass OptClass NoClass SomeClass #-}
 
-  data start : Set where 
-    File : posinfo → imports → qvar → params → cmds → posinfo → start
+data optTerm where 
+  NoTerm : optTerm
+  SomeTerm : term → posinfo → optTerm
+{-# COMPILED_DATA optTerm OptTerm NoTerm SomeTerm #-}  
 
-  data term : Set where 
-    App : term → maybeErased → term → term
-    AppTp : term → type → term
-    Beta : posinfo → optTerm → term
-    Chi : posinfo → maybeAtype → term → term
-    Epsilon : posinfo → leftRight → maybeMinus → term → term
-    Hole : posinfo → term
-    IotaPair : posinfo → term → term → optTerm → posinfo → term
-    IotaProj : term → num → posinfo → term
-    Lam : posinfo → lam → posinfo → bvar → optClass → term → term
-    Let : posinfo → defTermOrType → term → term
-    Parens : posinfo → term → posinfo → term
-    Rho : posinfo → rho → term → term → term
-    Sigma : posinfo → term → term
-    Theta : posinfo → theta → term → lterms → term
-    Var : posinfo → qvar → term
+data optType where 
+  NoType : optType
+  SomeType : type → optType
+{-# COMPILED_DATA optType OptType NoType SomeType #-}    
 
-  data theta : Set where 
-    Abstract : theta
-    AbstractEq : theta
-    AbstractVars : vars → theta
+data params where 
+  ParamsCons : decl → params → params
+  ParamsNil : params
+{-# COMPILED_DATA params Params ParamsCons ParamsNil #-}      
 
-  data tk : Set where 
-    Tkk : kind → tk
-    Tkt : type → tk
+data rho where 
+  RhoPlain : rho
+  RhoPlus : rho
+{-# COMPILED_DATA rho Rho RhoPlain RhoPlus #-}
 
-  data type : Set where 
-    Abs : posinfo → binder → posinfo → bvar → tk → type → type
-    Iota : posinfo → posinfo → bvar → optType → type → type
-    Lft : posinfo → posinfo → var → term → liftingType → type
-    NoSpans : type → posinfo → type
-    TpApp : type → type → type
-    TpAppt : type → term → type
-    TpArrow : type → arrowtype → type → type
-    TpEq : term → term → type
-    TpHole : posinfo → type
-    TpLambda : posinfo → posinfo → bvar → tk → type → type
-    TpParens : posinfo → type → posinfo → type
-    TpVar : posinfo → qvar → type
+data start where 
+  File : posinfo → imports → qvar → params → cmds → posinfo → start
+{-# COMPILED_DATA start Start File #-}  
 
-  data vars : Set where 
-    VarsNext : var → vars → vars
-    VarsStart : var → vars
+data term where 
+  App : term → maybeErased → term → term
+  AppTp : term → type → term
+  Beta : posinfo → optTerm → term
+  Chi : posinfo → maybeAtype → term → term
+  Epsilon : posinfo → leftRight → maybeMinus → term → term
+  Hole : posinfo → term
+  IotaPair : posinfo → term → term → optTerm → posinfo → term
+  IotaProj : term → num → posinfo → term
+  Lam : posinfo → lam → posinfo → bvar → optClass → term → term
+  Let : posinfo → defTermOrType → term → term
+  Parens : posinfo → term → posinfo → term
+  Rho : posinfo → rho → term → term → term
+  Sigma : posinfo → term → term
+  Theta : posinfo → theta → term → lterms → term
+  Var : posinfo → qvar → term
+{-# COMPILED_DATA term Term App AppTyp Beta Chi Epsilon Hole IotaPair IotaProj Lam Let Parens Rho Sigma Theta Var #-}    
+
+data theta where 
+  Abstract : theta
+  AbstractEq : theta
+  AbstractVars : vars → theta
+{-# COMPILED_DATA theta Theta Abstract AbstractEq AbstractVars #-}      
+
+data tk where 
+  Tkk : kind → tk
+  Tkt : type → tk
+{-# COMPILED_DATA tk Tk Tkk Tkt #-}        
+
+data type where 
+  Abs : posinfo → binder → posinfo → bvar → tk → type → type
+  Iota : posinfo → posinfo → bvar → optType → type → type
+  Lft : posinfo → posinfo → var → term → liftingType → type
+  NoSpans : type → posinfo → type
+  TpApp : type → type → type
+  TpAppt : type → term → type
+  TpArrow : type → arrowtype → type → type
+  TpEq : term → term → type
+  TpHole : posinfo → type
+  TpLambda : posinfo → posinfo → bvar → tk → type → type
+  TpParens : posinfo → type → posinfo → type
+  TpVar : posinfo → qvar → type
+{-# COMPILED_DATA type Type Abs Iota Lft NoSpans TpApp TpAppt TpArrow TpEq TpHole TpLambda TpParens TpVar #-}
+
+data vars where 
+  VarsNext : var → vars → vars
+  VarsStart : var → vars
+{-# COMPILED_DATA vars Vars VarsNext VarsStart #-}
 
 -- embedded types:
 aterm : Set
