@@ -32,6 +32,8 @@ info:
 	happy -i src/CedilleParser.y; rm -f src/CedilleParser.hs; rm -f src/CedilleLexer.hs ; rm -f src/*.hi; rm -f src/*.o
 
 clean:
-	rm -f src/*.info; rm -f src/CedilleParser.hs; rm -f src/CedilleParser.info; rm -f src/CedilleLexer.hs ; rm -f src/*.hi; rm -f src/*.o; rm -f *~; rm -f src/*~; rm -f test/*~; rm -rf dist; rm -f test/*.o; rm -f test/*.hi; rm -f test/#*; rm -f test/.#*; rm -f test/Tests
+	rm -f src/*.info; rm -f src/CedilleParser.hs; rm -f src/CedilleParser.info; rm -f src/CedilleLexer.hs ; rm -f src/*.hi; rm -f src/*.o; rm -f src/*.agdai; rm -rf src/MAlonzo; rm -f agda-test; rm -f *~; rm -f src/*~; rm -f test/*~; rm -rf dist; rm -f test/*.o; rm -f test/*.hi; rm -f test/#*; rm -f test/.#*; 
 
+agda-test: ./src/cedille-types.agda ./src/test.agda parser lexer
+	cd src;agda --ghc-flag=-rtsopts -c test.agda;mv test ../agda-test
 
