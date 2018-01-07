@@ -101,3 +101,21 @@ state: 116,	token: 0,	action: fail.
 
 In the state 12 the generated parser reads the arrow symbol as part of a Type (`Type -> LType . '➔' Type` rule (74)) and not of a LiftingType rule (applying a reduce with `Type -> LType` rule (75)).
 
+* Export parser to Agda
+  ** Exported haskell AST datatype to agda [doc/cedille-types.agda](doc/cedille-types.agda) and also the parser (next fragment)
+
+```
+{-# IMPORT CedilleParser #-}
+
+data Either (A : Set)(B : Set) : Set where
+  Left : A → Either A B
+  Right : B → Either A B
+{-# COMPILED_DATA Either Either Left Right #-}
+
+postulate
+  parseStart : string → Either string start
+
+{-# COMPILED parseStart CedilleParser.parseTxt #-}
+```
+  
+
