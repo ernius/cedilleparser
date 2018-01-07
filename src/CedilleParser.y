@@ -283,6 +283,9 @@ parseTxt s = case runAlex (unpack s) $ cedilleParser of
                Prelude.Left  s2 -> Prelude.Left (pack s2)
                Prelude.Right r  -> Prelude.Right r
 
+showStart :: Start -> Text
+showStart s = pack (show s)
+
 main :: IO ()
 main = do  
   s <- getContents
