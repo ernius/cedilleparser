@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Main(main) where
 
 import Prelude
@@ -9,6 +10,7 @@ import Control.Arrow
 import Control.Monad
 import System.IO  
 import qualified System.Exit as Exit
+import Data.Text (Text, pack)
 
 removeLexerPositions :: Either a [Token] -> Either a [TokenClass]
 removeLexerPositions = right (map (\ (Token _ tc) -> tc))

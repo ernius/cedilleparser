@@ -79,14 +79,14 @@ import CedilleLexer hiding (main)
 %%
   
 Start :: { Start }
-      : Imports 'module' Qvar Params '.' Cmds LineNo { File $2 $1 (tStr $3) $4 $6 $7 }  
+      : Imports 'module' Qvar Params '.' Cmds LineNo { File $2 $1 (tTxt $3) $4 $6 $7 }  
 
 Imprt :: { Imprt }
-      : 'import' Fpth OptAs Args '.'    { Import $1 (tStr $2) $3 $4 $5 }
+      : 'import' Fpth OptAs Args '.'    { Import $1 (tTxt $2) $3 $4 $5 }
 
 OptAs :: { OptAs }
       :                                 { NoOptAs             }
-      | 'as' var                        { SomeOptAs (tStr $2) }
+      | 'as' var                        { SomeOptAs (tTxt $2) }
       
 Imports :: { Imports }
         :                               { ImportsStart      }
@@ -100,7 +100,7 @@ Cmds :: { Cmds }
 Cmd :: { Cmd }
     : Imprt                             { ImportCmd $1                         }
     | DefTermOrType        '.'          { DefTermOrType $1 $2                  }
-    | kvar Params '=' Kind '.'          { DefKind (tPos $1) (tStr $1) $2 $4 $5 }
+    | kvar Params '=' Kind '.'          { DefKind (tPos $1) (tTxt $1) $2 $4 $5 }
 
 MaybeCheckType :: { MaybeCheckType }
                :                        { NoCheckType }
@@ -111,11 +111,11 @@ Params :: { Params }
        | Decl Params                    { ParamsCons $1 $2 }
 
 DefTermOrType :: { DefTermOrType }
-              : var MaybeCheckType '=' Term  { DefTerm (tPos $1) (tStr $1) $2 $4 }
-              | var '◂' Kind       '=' Type  { DefType (tPos $1) (tStr $1) $3 $5 } 
+              : var MaybeCheckType '=' Term  { DefTerm (tPos $1) (tTxt $1) $2 $4 }
+              | var '◂' Kind       '=' Type  { DefType (tPos $1) (tTxt $1) $3 $5 } 
 
 Decl :: { Decl }
-     : '(' Bvar ':' Tk ')'              { Decl $1 (tPos $2) (tStr $2) $4 $5 }
+     : '(' Bvar ':' Tk ')'              { Decl $1 (tPos $2) (tTxt $2) $4 $5 }
 
 Theta :: { (Theta, PosInfo) }
       : 'θ'                             { (Abstract       , $1) }
@@ -123,8 +123,8 @@ Theta :: { (Theta, PosInfo) }
       | 'θ<' Vars '>'                   { (AbstractVars $2, $1) }
 
 Vars :: { Vars }
-     : var                              { VarsStart (tStr $1)    }
-     | var Vars                         { VarsNext  (tStr $1) $2 }
+     : var                              { VarsStart (tTxt $1)    }
+     | var Vars                         { VarsNext  (tTxt $1) $2 }
 
 Rho :: { (Rho, PosInfo) }
     : 'ρ'                               { (RhoPlain, $1)  }
@@ -135,7 +135,7 @@ OptTerm :: { OptTerm }
         | '{' Term '}'                  { SomeTerm $2 $3 }
 
 Term :: { Term }
-     : Lam Bvar OptClass '.' Term       { Lam (snd $1) (fst $1) (tPos $2) (tStr $2) $3 $5 }
+     : Lam Bvar OptClass '.' Term       { Lam (snd $1) (fst $1) (tPos $2) (tTxt $2) $3 $5 }
      | 'let' DefTermOrType 'in' Term    { Let $1 $2 $4                                    }
      | Theta Lterm Lterms               { Theta (snd $1) (fst $1) $2 $3                   }
      | Aterm                            { $1                                              }
@@ -160,9 +160,9 @@ Lterm :: { Term }
       | Pterm                           { $1                                        }
 
 Pterm :: { Term }
-      : Qvar                            { Var (tPos $1) (tStr $1)         }
+      : Qvar                            { Var (tPos $1) (tTxt $1)         }
       | '(' Term ')'                    { Parens $1 $2 $3                 } 
-      | Pterm '.num'                    { IotaProj $1 (tStr $2) (tPos $2) } -- shift-reduce conflict with the point of end of command (solution: creates a token '.num')
+      | Pterm '.num'                    { IotaProj $1 (tTxt $2) (tPos $2) } -- shift-reduce conflict with the point of end of command (solution: creates a token '.num')
       | '[' Term ',' Term OptTerm ']'   { IotaPair $1 $2 $4 $5 $6         }
       | '●'                             { Hole $1                        }      
 
@@ -188,10 +188,10 @@ Lam :: { (Lam , PosInfo) }
     | 'λ'                               { (KeptLambda  , $1) }
 
 Type :: { Type }
-     : 'Π'    Bvar ':' Tk  '.' Type     { Abs $1 Pi  (tPos $2) (tStr $2) $4 $6            }
-     | '∀'    Bvar ':' Tk  '.' Type     { Abs $1 All (tPos $2) (tStr $2) $4 $6            }
-     | 'λ'    Bvar ':' Tk  '.' Type     { TpLambda $1 $3 (tStr $2) $4 $6                  }
-     | 'ι'    Bvar OptType '.' Type     { Iota $1 (tPos $2) (tStr $2) $3 $5               }
+     : 'Π'    Bvar ':' Tk  '.' Type     { Abs $1 Pi  (tPos $2) (tTxt $2) $4 $6            }
+     | '∀'    Bvar ':' Tk  '.' Type     { Abs $1 All (tPos $2) (tTxt $2) $4 $6            }
+     | 'λ'    Bvar ':' Tk  '.' Type     { TpLambda $1 $3 (tTxt $2) $4 $6                  }
+     | 'ι'    Bvar OptType '.' Type     { Iota $1 (tPos $2) (tTxt $2) $3 $5               }
      | LType '➾' Type                  { TpArrow $1 ErasedArrow   $3                     }
      | LType '➔' Type                  { TpArrow $1 UnerasedArrow $3                     }
      | LType                            { $1                                              }
@@ -199,7 +199,7 @@ Type :: { Type }
      | '{' Term '≃' Term '}'            { TpEq $2 $4                                     } -- reduce/reduce conflict with variables and holes in types and terms without brackets
 
 LType :: { Type } 
-      : '↑' var '.' Term ':' LliftingType { Lft $1 (tPos $2) (tStr $2) $4 $6 }
+      : '↑' var '.' Term ':' LliftingType { Lft $1 (tPos $2) (tTxt $2) $4 $6 }
       | LType   '·' Atype                 { TpApp $1 $3                      }
       | LType Lterm                       { TpAppt $1 $2                     }
 --    | '{' Term '≃' Term '}'            { TpEq $2 $4                       } -- is it not better here ?
@@ -207,7 +207,7 @@ LType :: { Type }
 
 Atype :: { Type }
       : '(' Type ')'                    { TpParens $1 $2 $3 }
-      | Qvar                            { TpVar (tPos $1) (tStr $1) }
+      | Qvar                            { TpVar (tPos $1) (tTxt $1) }
       | '●'                             { TpHole $1   }
 
 Arg :: { Arg }
@@ -219,7 +219,7 @@ Args :: { Args }
      | Arg Args                         { ArgsCons $1 $2 } 
 
 Kind :: { Kind }
-     : 'Π' Bvar ':' Tk '.' Kind         { KndPi $1 (tPos $2) (tStr $2) $4 $6 }
+     : 'Π' Bvar ':' Tk '.' Kind         { KndPi $1 (tPos $2) (tTxt $2) $4 $6 }
      | LKind '➔' Kind                  { KndArrow   $1 $3                   }
      | LType '➔' Kind                  { KndTpArrow $1 $3                   }
      | LKind                            { $1                                 }
@@ -227,10 +227,10 @@ Kind :: { Kind }
 LKind :: { Kind }
      : '★'                             { Star $1                            }
      | '(' Kind ')'                     { KndParens  $1 $2 $3                }
-     | qkvar Args                       { KndVar (tPos $1) (tStr $1) $2      }
+     | qkvar Args                       { KndVar (tPos $1) (tTxt $1) $2      }
 
 LiftingType :: { LiftingType }
-            : 'Π' Bvar ':' Type '.' LiftingType    { LiftPi $1 (tStr $2) $4 $6 } 
+            : 'Π' Bvar ':' Type '.' LiftingType    { LiftPi $1 (tTxt $2) $4 $6 } 
             | LliftingType  '➔' LiftingType       { LiftArrow   $1 $3         }
             | Type          '➔' LiftingType       { LiftTpArrow $1 $3         }
             | LliftingType                         { $1                        }
@@ -272,10 +272,13 @@ lexer f = alexMonadScan >>= f
 parseError :: Token -> Alex a
 parseError (Token p t) = alexError $ "Parse error in token:" ++ show t ++ "\n. Position: " ++ show p
 
+parse :: String -> Either String Start
+parse s = runAlex s $ cedilleParser
+
 main :: IO ()
 main = do  
   s <- getContents
-  case runAlex s $ cedilleParser of
-    Prelude.Left  errMsg -> putStrLn $ "Error:" ++ errMsg
-    Prelude.Right res    -> putStrLn $ "Parser successful:" ++ show res
+  case parse s of
+    Prelude.Left  errMsg -> putStrLn $ "Error:"             ++ errMsg
+    Prelude.Right res    -> putStrLn $ "Parser successful, AST:" ++ show res
 }

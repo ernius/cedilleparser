@@ -4,6 +4,7 @@ module CedilleLexer where
 
 import Control.Monad
 import Text.Show.Unicode
+import Data.Text(Text,pack)
 
 }
 
@@ -69,6 +70,9 @@ data Token = Token AlexPosn TokenClass
 
 tPos :: Token -> AlexPosn
 tPos (Token p _) = p
+
+tTxt :: Token -> Text
+tTxt (Token _ t) = pack (tcStr t)
 
 tStr :: Token -> String
 tStr (Token _ t) = tcStr t
