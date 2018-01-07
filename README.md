@@ -2,8 +2,7 @@
 
 Dependant typed programming language (called Cedille) parser.
 
-Parser exported to Agda
-  * Exported Haskell AST datatype to Agda [src/cedille-types.agda](src/cedille-types.agda), and developed a minimal running test [src/test.agda](src/test.agda).
+Exported Haskell AST datatype to Agda [src/cedille-types.agda](src/cedille-types.agda), and developed a minimal running test [src/test.agda](src/test.agda).
 
 ## Must review:
 
