@@ -4,7 +4,7 @@ module CedilleParser where
 
 import CedilleTypes
 import CedilleLexer hiding (main)
-import Data.Text(Text,pack)
+import Data.Text(Text,pack,unpack)
 
 }
 
@@ -137,9 +137,9 @@ OptTerm :: { OptTerm }
 
 Term :: { Term }
      : Lam Bvar OptClass '.' Term       { Lam (snd $1) (fst $1) (tPosTxt $2) (tTxt $2) $3 $5 }
-     | 'let' DefTermOrType 'in' Term    { Let (pos2Txt $1) $2 $4                                    }
-     | Theta Lterm Lterms               { Theta (snd $1) (fst $1) $2 $3                   }
-     | Aterm                            { $1                                              }
+     | 'let' DefTermOrType 'in' Term    { Let (pos2Txt $1) $2 $4                             }
+     | Theta Lterm Lterms               { Theta (snd $1) (fst $1) $2 $3                      }
+     | Aterm                            { $1                                                 }
 
 Aterm :: { Term }
       : Aterm     Lterm                 { App $1 NotErased $2           }
@@ -275,8 +275,13 @@ lexer f = alexMonadScan >>= f
 parseError :: Token -> Alex a
 parseError (Token p t) = alexError $ "Parse error in token:" ++ show t ++ "\n. Position: " ++ show p
 
-parse :: String -> Either String Start
-parse s = runAlex s $ cedilleParser
+parse :: String-> Either String Start
+parse s = runAlex s $ cedilleParser 
+
+parseTxt :: Text -> Either Text Start
+parseTxt s = case runAlex (unpack s) $ cedilleParser of
+               Prelude.Left  s2 -> Prelude.Left (pack s2)
+               Prelude.Right r  -> Prelude.Right r
 
 main :: IO ()
 main = do  
