@@ -2,7 +2,7 @@ module CedilleTypes where
 
 import Prelude hiding(Num)
 import CedilleLexer
-import Data.Text
+import Data.Text(Text)
 
 type Num = Text
 type Fpth = Text
@@ -11,7 +11,7 @@ type Bvar = Text
 type Qvar = Text
 type Qkvar = Text
 type Kvar = Text
-type PosInfo = AlexPosn
+type PosInfo = Text
 
 data Arg = TermArg Term | TypeArg Type
      deriving (Show,Eq)

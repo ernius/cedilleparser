@@ -71,6 +71,12 @@ data Token = Token AlexPosn TokenClass
 tPos :: Token -> AlexPosn
 tPos (Token p _) = p
 
+pos2Txt :: AlexPosn -> Text
+pos2Txt (AlexPn p _ _) = pack (show p)
+
+tPosTxt :: Token -> Text
+tPosTxt (Token p _) = pos2Txt p
+
 tTxt :: Token -> Text
 tTxt (Token _ t) = pack (tcStr t)
 
