@@ -104,5 +104,5 @@ state: 116,	token: 53,	action: fail.
 state: 116,	token: 0,	action: fail.
 ```
 
-In the state 12 the generated parser reads the arrow symbol as part of a Type (`Type -> LType . '➔' Type`) and not of a LiftingType rule (LiftingType -> Type . '➔' LiftingType`, by first applying a reduce with `Type -> LType` rule, and then previous rule).
+In the state 12 the generated parser reads the arrow symbol as part of a Type (`Type -> LType . '➔' Type`) and not of a LiftingType rule (`LiftingType -> Type . '➔' LiftingType`, by first applying a reduce with `Type -> LType` rule, and then previous rule).
 
