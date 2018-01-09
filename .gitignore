@@ -4,6 +4,8 @@
 *.hi
 *.o
 tests/Tests
+agda-test
+src/MAlonzo/*
 
 # Packages #
 ############
