@@ -2,6 +2,8 @@
 
 Dependant typed programming language (called Cedille) parser.
 
+## Project details
+
 Source code:
  * Lexer  [src/CedilleLexer.x](src/CedilleLexer.x)
  * Parser [src/CedilleParser.y](src/CedilleParser.y)
@@ -9,6 +11,13 @@ Source code:
 Some working examples tested in [test](test) project sub folder.
 
 Parser exported to Agda. Haskell AST datatype export to Agda ([src/cedille-types.agda](src/cedille-types.agda)), and minimal example calling the Haskell's parser from Agda ([src/test.agda](src/test.agda)).
+
+Makefile/Cabal commands:
+ * Build: `cabal build`.
+ * Running tests: `cabal test` or `make tests`.
+ * Running tests in debug mode: `make tests-debug`.
+ * Rebuild parser info file: `make info`.
+ * Running agda test: `make agda-test`.
 
 ## Must review:
 
