@@ -3,8 +3,8 @@
 Dependant typed programming language (called Cedille) parser.
 
 Source code:
- * [src/CedilleLexer.x] Lexer
- * [src/CedilleParser.y] Parser
+ * Lexer  [src/CedilleLexer.x](src/CedilleLexer.x)
+ * Parser [src/CedilleParser.y](src/CedilleParser.y)
 
 Some working examples tested in [test](test) project sub folder.
 
