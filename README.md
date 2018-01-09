@@ -3,10 +3,10 @@
 Dependant typed programming language (called Cedille) parser.
 
 Source code:
- *[src/CedilleLexer.x] Lexer
- *[src/CedilleParser.y] Parser
+ * [src/CedilleLexer.x] Lexer
+ * [src/CedilleParser.y] Parser
 
-Some working examples tested in [test/](test) project sub folder.
+Some working examples tested in [test](test) project sub folder.
 
 Parser exported to Agda. Haskell AST datatype export to Agda ([src/cedille-types.agda](src/cedille-types.agda)), and minimal example calling the Haskell's parser from Agda ([src/test.agda](src/test.agda)).
 
