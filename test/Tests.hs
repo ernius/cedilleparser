@@ -88,11 +88,13 @@ test_parser_cmd = TestCase (assertEqual "test parser command"
 -- Problem shift-reduce confict in state 12 causes it is not correctly parsed
 
 test_parser_liftingtype_str = unlines [
-  "    Π a : a . a ➔ ☆   "
+--  "    Π a : a . a ➔ ☆   "
+    "     a ➔ ☆   "
   ]
--- test_parser_liftingtype = TestCase (assertEqual "test parser lifting type"
---                                     (Prelude.Right (LiftStar (AlexPn 2 1 3)))
---                                     (runAlex test_parser_liftingtype_str $ liftingtype))
+
+test_parser_liftingtype = TestCase (assertEqual "test parser lifting type"
+                                    (Prelude.Right (LiftTpArrow (TpVar "1" "a") (LiftStar "1")))
+                                    (runAlex test_parser_liftingtype_str $ liftingtype))
 
 test_parser_cnat_str = unlines [
   "module ChurchNat ."                         ,
@@ -153,7 +155,7 @@ tests = TestList [
   , TestLabel "test list.ced"              test_list
 
   -- shift/reduce conflict problematic test
-  --, TestLabel "test lifting type"          test_parser_liftingtype
+  --TestLabel "test lifting type"          test_parser_liftingtype
   ]
 
 main = do

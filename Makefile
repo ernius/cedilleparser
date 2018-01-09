@@ -37,3 +37,5 @@ clean:
 agda-test: ./src/cedille-types.agda ./src/test.agda parser lexer
 	cd src;agda --ghc-flag=-rtsopts -c test.agda;mv test ../agda-test
 
+conflict-image: ./doc/conflicts/derivation.dot
+	cd doc/conflicts/;dot derivation.dot -Tjpg -o derivation.jpg 
