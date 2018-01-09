@@ -3,6 +3,7 @@
 *.agdai
 *.hi
 *.o
+tests/Tests
 
 # Packages #
 ############
