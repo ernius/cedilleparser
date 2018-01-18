@@ -27,7 +27,7 @@ Makefile/Cabal commands:
 
 * Shifting in the AST position information.
 
-Next, are the results of the Agda's parser, and this one, for the same input. It seems to exist a ten units shiftment in the position information (perhaps the length of module statement?). There also exist a divergence of one unit in the last pos. info. of `DefTermOrType` nodes (delimited by ** markers). 
+Next, are the results of the Agda's parser, and this one, for the same input. It seems to exist a ten units shiftment in the position information (perhaps the length of module statement?). There also exist a divergence of an extra unit in the last pos. info. in `DefTermOrType`, `Parens` and `TpParens` nodes (delimited by ** markers). 
 
 Input: `module Cnat. cNat ◂ ★ = ∀ X : ★ . (X ➔ X) ➔ X ➔ X . cZ ◂ cNat = Λ X . λ f . λ a . a . cS ◂ cNat ➔ cNat = λ n . Λ X . λ f . λ a . f (n · X f a) .`
 
@@ -35,18 +35,18 @@ Input: `module Cnat. cNat ◂ ★ = ∀ X : ★ . (X ➔ X) ➔ X ➔ X . cZ ◂
 Agda's parser:
 
 File "10" ImportsStart "Cnat" ParamsNil
-     (CmdsNext (DefTermOrType (DefType "23" "cNat" (Star "30") (Abs "34" All "36" "X" (Tkk (Star "40")) (TpArrow (TpParens "44" (TpArrow (TpVar "45" "X") UnerasedArrow (TpVar "49" "X")) "51") UnerasedArrow (TpArrow (TpVar "54" "X") UnerasedArrow (TpVar "58" "X"))))) **"61"**)
+     (CmdsNext (DefTermOrType (DefType "23" "cNat" (Star "30") (Abs "34" All "36" "X" (Tkk (Star "40")) (TpArrow (TpParens "44" (TpArrow (TpVar "45" "X") UnerasedArrow (TpVar "49" "X")) **"51"**) UnerasedArrow (TpArrow (TpVar "54" "X") UnerasedArrow (TpVar "58" "X"))))) **"61"**)
      (CmdsNext (DefTermOrType (DefTerm "62" "cZ" (Type (TpVar "67" "cNat")) (Lam "74" ErasedLambda "76" "X" NoClass (Lam "80" KeptLambda "82" "f" NoClass (Lam "86" KeptLambda "88" "a" NoClass (Var "92" "a"))))) **"95"**)
-     (CmdsNext (DefTermOrType (DefTerm "96" "cS" (Type (TpArrow (TpVar "101" "cNat") UnerasedArrow (TpVar "108" "cNat"))) (Lam "115" KeptLambda "117" "n" NoClass (Lam "121" ErasedLambda "123" "X" NoClass (Lam "127" KeptLambda "129" "f" NoClass (Lam "133" KeptLambda "135" "a" NoClass (App (Var "139" "f") NotErased (Parens "141" (App (App (AppTp (Var "142" "n") (TpVar "146" "X")) NotErased (Var "148" "f")) NotErased (Var "150" "a")) "152"))))))) **"154"**)
+     (CmdsNext (DefTermOrType (DefTerm "96" "cS" (Type (TpArrow (TpVar "101" "cNat") UnerasedArrow (TpVar "108" "cNat"))) (Lam "115" KeptLambda "117" "n" NoClass (Lam "121" ErasedLambda "123" "X" NoClass (Lam "127" KeptLambda "129" "f" NoClass (Lam "133" KeptLambda "135" "a" NoClass (App (Var "139" "f") NotErased (Parens "141" (App (App (AppTp (Var "142" "n") (TpVar "146" "X")) NotErased (Var "148" "f")) NotErased (Var "150" "a")) **"152"**))))))) **"154"**)
      CmdsStart)))
     "155"
 
 Haskell's parser:
 
 File "0" ImportsStart "Cnat" ParamsNil
-     (CmdsNext (DefTermOrType (DefType "13" "cNat" (Star "20") (Abs "24" All "26" "X" (Tkk (Star "30")) (TpArrow (TpParens "34" (TpArrow (TpVar "35" "X") UnerasedArrow (TpVar "39" "X")) "40") UnerasedArrow (TpArrow (TpVar "44" "X") UnerasedArrow (TpVar "48" "X"))))) **"50"**)
+     (CmdsNext (DefTermOrType (DefType "13" "cNat" (Star "20") (Abs "24" All "26" "X" (Tkk (Star "30")) (TpArrow (TpParens "34" (TpArrow (TpVar "35" "X") UnerasedArrow (TpVar "39" "X")) **"40"**) UnerasedArrow (TpArrow (TpVar "44" "X") UnerasedArrow (TpVar "48" "X"))))) **"50"**)
      (CmdsNext (DefTermOrType (DefTerm "52" "cZ" (Type (TpVar "57" "cNat")) (Lam "64" ErasedLambda "66" "X" NoClass (Lam "70" KeptLambda "72" "f" NoClass (Lam "76" KeptLambda "78" "a" NoClass (Var "82" "a"))))) **"84"**)
-     (CmdsNext (DefTermOrType (DefTerm "86" "cS" (Type (TpArrow (TpVar "91" "cNat") UnerasedArrow (TpVar "98" "cNat"))) (Lam "105" KeptLambda "107" "n" NoClass (Lam "111" ErasedLambda "113" "X" NoClass (Lam "117" KeptLambda "119" "f" NoClass (Lam "123" KeptLambda "125" "a" NoClass (App (Var "129" "f") NotErased (Parens "131" (App (App (AppTp (Var "132" "n") (TpVar "136" "X")) NotErased (Var "138" "f")) NotErased (Var "140" "a")) "141"))))))) **"143"**)
+     (CmdsNext (DefTermOrType (DefTerm "86" "cS" (Type (TpArrow (TpVar "91" "cNat") UnerasedArrow (TpVar "98" "cNat"))) (Lam "105" KeptLambda "107" "n" NoClass (Lam "111" ErasedLambda "113" "X" NoClass (Lam "117" KeptLambda "119" "f" NoClass (Lam "123" KeptLambda "125" "a" NoClass (App (Var "129" "f") NotErased (Parens "131" (App (App (AppTp (Var "132" "n") (TpVar "136" "X")) NotErased (Var "138" "f")) NotErased (Var "140" "a")) **"141"**))))))) **"143"**)
      CmdsStart)))
      "145"
 ```
