@@ -74,6 +74,9 @@ tPos (Token p _) = p
 pos2Txt :: AlexPosn -> Text
 pos2Txt (AlexPn p _ _) = pack (show p)
 
+pos2Txt1 :: AlexPosn -> Text
+pos2Txt1 (AlexPn p _ _) = pack (show (p+1))
+
 tPosTxt :: Token -> Text
 tPosTxt (Token p _) = pos2Txt p
 

@@ -100,7 +100,7 @@ Cmds :: { Cmds }
 
 Cmd :: { Cmd }
     : Imprt                             { ImportCmd $1                                      }
-    | DefTermOrType        '.'          { DefTermOrType $1 (pos2Txt $2)                     }
+    | DefTermOrType        '.'          { DefTermOrType $1 (pos2Txt1 $2)                    }
     | kvar Params '=' Kind '.'          { DefKind (tPosTxt $1) (tTxt $1) $2 $4 (pos2Txt $5) }
 
 MaybeCheckType :: { MaybeCheckType }
@@ -162,7 +162,7 @@ Lterm :: { Term }
 
 Pterm :: { Term }
       : Qvar                            { Var (tPosTxt $1) (tTxt $1)                  }
-      | '(' Term ')'                    { Parens (pos2Txt $1) $2 (pos2Txt $3)         } 
+      | '(' Term ')'                    { Parens (pos2Txt $1) $2 (pos2Txt1 $3)        } 
       | Pterm '.num'                    { IotaProj $1 (tTxt $2) (tPosTxt $2)          } -- shift-reduce conflict with the point of end of command (solution: creates a token '.num')
       | '[' Term ',' Term OptTerm ']'   { IotaPair (pos2Txt $1) $2 $4 $5 (pos2Txt $6) }
       | '●'                             { Hole (pos2Txt $1)                           }      
@@ -207,7 +207,7 @@ LType :: { Type }
       | Atype                             { $1                                            }
 
 Atype :: { Type }
-      : '(' Type ')'                    { TpParens (pos2Txt $1) $2 (pos2Txt $3) }
+      : '(' Type ')'                    { TpParens (pos2Txt $1) $2 (pos2Txt1 $3) }
       | Qvar                            { TpVar (tPosTxt $1) (tTxt $1)          }
       | '●'                             { TpHole (pos2Txt $1)                   }
 
