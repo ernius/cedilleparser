@@ -87,7 +87,7 @@ Start :: { Start }
       : Imports 'module' Qvar Params '.' Cmds LineNo { File (pos2Txt $2) $1 (tTxt $3) $4 $6 $7 }  
 
 Imprt :: { Imprt }
-      : 'import' Fpth OptAs Args '.'    { Import (pos2Txt $1) (tTxt $2) $3 $4 (pos2Txt $5) }
+      : 'import' Fpth OptAs Args '.'    { Import (pos2Txt $1) (tTxt $2) $3 $4 (pos2Txt1 $5) }
 
 OptAs :: { OptAs }
       :                                 { NoOptAs             }
