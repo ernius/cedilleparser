@@ -4,7 +4,11 @@ module CedilleParser where
 
 import CedilleTypes
 import CedilleLexer hiding (main)
-import Data.Text(Text,pack,unpack)
+
+import Data.Text(Text,pack,unpack,append)
+
+import Control.Monad
+import System.Directory
 
 }
 
@@ -191,7 +195,7 @@ Lam :: { (Lam , PosInfo) }
 Type :: { Type }
      : 'Π'    Bvar ':' Tk  '.' Type     { Abs (pos2Txt $1) Pi  (tPosTxt $2) (tTxt $2) $4 $6            }
      | '∀'    Bvar ':' Tk  '.' Type     { Abs (pos2Txt $1) All (tPosTxt $2) (tTxt $2) $4 $6            }
-     | 'λ'    Bvar ':' Tk  '.' Type     { TpLambda (pos2Txt $1) (pos2Txt $3) (tTxt $2) $4 $6           }
+     | 'λ'    Bvar ':' Tk  '.' Type     { TpLambda (pos2Txt $1) (tPosTxt $2) (tTxt $2) $4 $6           }
      | 'ι'    Bvar OptType '.' Type     { Iota     (pos2Txt $1) (tPosTxt $2) (tTxt $2) $3 $5           }
      | LType '➾' Type                  { TpArrow $1 ErasedArrow   $3                                  }
      | LType '➔' Type                  { TpArrow $1 UnerasedArrow $3                                  }
@@ -275,7 +279,7 @@ lexer f = alexMonadScan >>= f
 parseError :: Token -> Alex a
 parseError (Token p t) = alexError $ "Parse error in token:" ++ show t ++ "\n. Position: " ++ show p
 
-parse :: String-> Either String Start
+parse :: String -> Either String Start
 parse s = runAlex s $ cedilleParser 
 
 parseTxt :: Text -> Either Text Start
@@ -283,13 +287,34 @@ parseTxt s = case runAlex (unpack s) $ cedilleParser of
                Prelude.Left  s2 -> Prelude.Left (pack s2)
                Prelude.Right r  -> Prelude.Right r
 
+parseTxt2 :: Text -> Text
+parseTxt2 s = case runAlex (unpack s) $ cedilleParser of
+               Prelude.Left  s2 -> pack s2
+               Prelude.Right r  -> pack $ show r
+
+
 showStart :: Start -> Text
 showStart s = pack (show s)
 
+eqStart :: Start -> Start -> Bool
+eqStart = (==)
+
+-- main :: IO ()
+-- main = do  
+--   s <- getContents
+--   case parse s of
+--     Prelude.Left  errMsg -> putStrLn $ "Error:"             ++ errMsg
+--     Prelude.Right res    -> putStrLn $ "Parser successful, AST:" ++ show res
+
+processDirectory :: Text -> Text -> (Text -> Text) -> IO ()
+processDirectory inputDir outputDir transformation = 
+  let outD = unpack outputDir  in
+  let inD  = unpack inputDir   in do
+    files    <- listDirectory inD
+    results  <- mapM (liftM (unpack . transformation . pack) . readFile . (++) inD ) files
+    mapM_ (uncurry writeFile) (zip (map ((++) outD) files) results)
+
 main :: IO ()
-main = do  
-  s <- getContents
-  case parse s of
-    Prelude.Left  errMsg -> putStrLn $ "Error:"             ++ errMsg
-    Prelude.Right res    -> putStrLn $ "Parser successful, AST:" ++ show res
+main = processDirectory (pack "test/tests/") (pack "results/result_") parseTxt2
+
 }
