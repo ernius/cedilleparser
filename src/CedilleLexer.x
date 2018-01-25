@@ -77,8 +77,16 @@ pos2Txt (AlexPn p _ _) = pack (show p)
 pos2Txt1 :: AlexPosn -> Text
 pos2Txt1 (AlexPn p _ _) = pack (show (p+1))
 
+-- used for .num
+pos2Txt2 :: AlexPosn -> Text
+pos2Txt2 (AlexPn p _ _) = pack (show (p+2))
+
 tPosTxt :: Token -> Text
 tPosTxt (Token p _) = pos2Txt p
+
+tPosTxt2 :: Token -> Text
+tPosTxt2 (Token p _) = pos2Txt2 p
+
 
 tTxt :: Token -> Text
 tTxt (Token _ t) = pack (tcStr t)

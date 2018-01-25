@@ -1,5 +1,8 @@
 # Compiled source #
 ###################
+CedilleParser
+src/CedilleParser.hs
+src/CedilleLexer.hs
 *.agdai
 *.hi
 *.o
