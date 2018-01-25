@@ -103,9 +103,9 @@ Cmds :: { Cmds }
      | Cmd Cmds                         { CmdsNext $1 $2 }
 
 Cmd :: { Cmd }
-    : Imprt                             { ImportCmd $1                                      }
-    | DefTermOrType        '.'          { DefTermOrType $1 (pos2Txt1 $2)                    }
-    | kvar Params '=' Kind '.'          { DefKind (tPosTxt $1) (tTxt $1) $2 $4 (pos2Txt $5) }
+    : Imprt                             { ImportCmd $1                                       }
+    | DefTermOrType        '.'          { DefTermOrType $1 (pos2Txt1 $2)                     }
+    | kvar Params '=' Kind '.'          { DefKind (tPosTxt $1) (tTxt $1) $2 $4 (pos2Txt1 $5) }
 
 MaybeCheckType :: { MaybeCheckType }
                :                        { NoCheckType }
@@ -168,7 +168,7 @@ Pterm :: { Term }
       : Qvar                            { Var (tPosTxt $1) (tTxt $1)                  }
       | '(' Term ')'                    { Parens (pos2Txt $1) $2 (pos2Txt1 $3)        } 
       | Pterm '.num'                    { IotaProj $1 (tTxt $2) (tPosTxt2 $2)         } -- shift-reduce conflict with the point of end of command (solution: creates a token '.num')
-      | '[' Term ',' Term OptTerm ']'   { IotaPair (pos2Txt $1) $2 $4 $5 (pos2Txt1 $6) }
+      | '[' Term ',' Term OptTerm ']'   { IotaPair (pos2Txt $1) $2 $4 $5 (pos2Txt1 $6)}
       | '●'                             { Hole (pos2Txt $1)                           }      
 
 MaybeAtype :: { MaybeAtype }
@@ -231,7 +231,7 @@ Kind :: { Kind }
 
 LKind :: { Kind }
      : '★'                             { Star (pos2Txt $1)                            }
-     | '(' Kind ')'                     { KndParens  (pos2Txt $1) $2 (pos2Txt $3)      }
+     | '(' Kind ')'                     { KndParens  (pos2Txt $1) $2 (pos2Txt1 $3)     }
      | qkvar Args                       { KndVar (tPosTxt $1) (tTxt $1) $2             }
 
 LiftingType :: { LiftingType }
@@ -242,7 +242,7 @@ LiftingType :: { LiftingType }
 
 LliftingType :: { LiftingType }
              : '☆'                                { LiftStar (pos2Txt $1)                    }
-             | '(' LiftingType ')'                { LiftParens  (pos2Txt $1) $2 (pos2Txt $3) }
+             | '(' LiftingType ')'                { LiftParens  (pos2Txt $1) $2 (pos2Txt1 $3)}
              
 Tk :: { Tk }
    : Type                               { Tkt $1 }
