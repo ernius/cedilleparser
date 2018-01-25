@@ -310,7 +310,7 @@ processDirectory :: Text -> Text -> (Text -> Text) -> IO ()
 processDirectory inputDir outputDir transformation = 
   let outD = unpack outputDir  in
   let inD  = unpack inputDir   in do
-    files    <- listDirectory inD
+    files    <- listDirectory inD >>= filterM doesFileExist
     results  <- mapM (liftM (unpack . transformation . pack) . readFile . (++) inD ) files
     mapM_ (uncurry writeFile) (zip (map ((++) outD) files) results)
 
