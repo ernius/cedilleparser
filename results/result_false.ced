@@ -1,1 +1,0 @@
-File "0" ImportsStart "False" ParamsNil (CmdsNext (DefTermOrType (DefType "16" "False" (Star "24") (Abs "28" All "30" "X" (Tkk (Star "34")) (TpVar "38" "X"))) "41") CmdsStart) "42"

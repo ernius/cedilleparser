@@ -1,6 +1,7 @@
 # Compiled source #
 ###################
 CedilleParser
+results/*
 src/CedilleParser.hs
 src/CedilleLexer.hs
 *.agdai
