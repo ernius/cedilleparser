@@ -136,8 +136,8 @@ Rho :: { (Rho, PosInfo) }
     | 'ρ+'                              { (RhoPlus , pos2Txt $1)  }
 
 OptTerm :: { OptTerm }
-        :                               { NoTerm                   }
-        | '{' Term '}'                  { SomeTerm $2 (pos2Txt $3) }
+        :                               { NoTerm                    }
+        | '{' Term '}'                  { SomeTerm $2 (pos2Txt1 $3) }
 
 Term :: { Term }
      : Lam Bvar OptClass '.' Term       { Lam (snd $1) (fst $1) (tPosTxt $2) (tTxt $2) $3 $5 }
@@ -168,7 +168,7 @@ Pterm :: { Term }
       : Qvar                            { Var (tPosTxt $1) (tTxt $1)                  }
       | '(' Term ')'                    { Parens (pos2Txt $1) $2 (pos2Txt1 $3)        } 
       | Pterm '.num'                    { IotaProj $1 (tTxt $2) (tPosTxt2 $2)         } -- shift-reduce conflict with the point of end of command (solution: creates a token '.num')
-      | '[' Term ',' Term OptTerm ']'   { IotaPair (pos2Txt $1) $2 $4 $5 (pos2Txt $6) }
+      | '[' Term ',' Term OptTerm ']'   { IotaPair (pos2Txt $1) $2 $4 $5 (pos2Txt1 $6) }
       | '●'                             { Hole (pos2Txt $1)                           }      
 
 MaybeAtype :: { MaybeAtype }
