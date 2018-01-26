@@ -120,7 +120,7 @@ DefTermOrType :: { DefTermOrType }
               | var '◂' Kind       '=' Type  { DefType (tPosTxt $1) (tTxt $1) $3 $5 } 
 
 Decl :: { Decl }
-     : '(' Bvar ':' Tk ')'              { Decl (pos2Txt $1) (tPosTxt $2) (tTxt $2) $4 (pos2Txt $5) }
+     : '(' Bvar ':' Tk ')'              { Decl (pos2Txt $1) (tPosTxt $2) (tTxt $2) $4 (pos2Txt1 $5) }
 
 Theta :: { (Theta, PosInfo) }
       : 'θ'                             { (Abstract       , pos2Txt $1) }
@@ -176,7 +176,7 @@ MaybeAtype :: { MaybeAtype }
            |                            { NoAtype  }
       
 Lterms :: { Lterms }
-       : LineNo                         { LtermsNil  $1              }
+       : LineNo_1                       { LtermsNil  $1              }
        |     Lterm Lterms               { LtermsCons NotErased $1 $2 }
        | '-' Lterm Lterms               { LtermsCons Erased    $2 $3 }       
 

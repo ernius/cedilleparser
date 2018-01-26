@@ -24,10 +24,10 @@ fold ◂ ∀ F : ★ ➔ ★ . Functor · F ➔ ∀ X : ★ . (F · X ➔ X) ➔
                  (Λ n : Nat . λ r . λ i . k (FF · (Iter · F n) · X r i))
                  (λ u . u · X) ).
     
-in ◂ ∀ F : ★ ➔ ★ . Functor · F ➔ F · (Fix · F) ➔ Fix · F = ● .
+inn ◂ ∀ F : ★ ➔ ★ . Functor · F ➔ F · (Fix · F) ➔ Fix · F = ● .
 
 out ◂ ∀ F : ★ ➔ ★ . Functor · F ➔ Fix · F ➔ F · (Fix · F) =
-  Λ F . λ FF . fold · F FF · (F · (Fix · F)) (FF · (F · (Fix · F)) · (Fix · F) (in · F FF))  .
+  Λ F . λ FF . fold · F FF · (F · (Fix · F)) (FF · (F · (Fix · F)) · (Fix · F) (inn · F FF))  .
 
 ListF ◂ ★ ➔ ★ ➔ ★ = λ A : ★ . λ X : ★ . Or · True · (And · A · X) .
 
