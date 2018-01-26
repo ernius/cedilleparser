@@ -1,0 +1,5 @@
+module cbool.
+
+cBool ◂ ★ = ∀ X : ★ . X ➔ X ➔ X .
+tt ◂ cBool = Λ X . λ a . λ b . a.
+ff ◂ cBool = Λ X . λ a . λ b . b.

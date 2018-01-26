@@ -5,7 +5,7 @@ module CedilleParser where
 import CedilleTypes
 import CedilleLexer hiding (main)
 
-import Data.Text(Text,pack,unpack,append)
+import Data.Text(Text,pack,unpack,append,breakOnEnd)
 
 import Control.Monad
 import System.Directory
@@ -84,7 +84,7 @@ import System.Directory
 %%
   
 Start :: { Start }
-      : Imports 'module' Qvar Params '.' Cmds LineNo { File (pos2Txt $2) $1 (tTxt $3) $4 $6 $7 }  
+      : Imports 'module' Qvar Params '.' Cmds LineNo { File (pack "0") $1 (tTxt $3) $4 $6 $7 }  
 
 Imprt :: { Imprt }
       : 'import' Fpth OptAs Args '.'    { Import (pos2Txt $1) (tTxt $2) $3 $4 (pos2Txt1 $5) }
@@ -220,7 +220,7 @@ Arg :: { Arg }
     | '·' Atype                         { TypeArg $2 }
 
 Args :: { Args }
-     : LineNo                           { ArgsNil $1     }
+     : LineNo_1                         { ArgsNil $1     }
      | Arg Args                         { ArgsCons $1 $2 } 
 
 Kind :: { Kind }
@@ -233,6 +233,7 @@ LKind :: { Kind }
      : '★'                             { Star (pos2Txt $1)                            }
      | '(' Kind ')'                     { KndParens  (pos2Txt $1) $2 (pos2Txt1 $3)     }
      | qkvar Args                       { KndVar (tPosTxt $1) (tTxt $1) $2             }
+     | kvar  Args                       { KndVar (tPosTxt $1) (tTxt $1) $2             }     
 
 LiftingType :: { LiftingType }
             : 'Π' Bvar ':' Type '.' LiftingType    { LiftPi (pos2Txt $1) (tTxt $2) $4 $6 } 
@@ -263,12 +264,15 @@ Fpth :: { Token }
 LineNo :: { PosInfo }
        : {- empty -}                    {% getPos } 
 
+LineNo_1 :: { PosInfo }
+         : {- empty -}                  {% getPos_1 } 
+
 {
-alexPos2txt :: AlexPosn -> Text
-alexPos2txt (AlexPn p _ _) = pack (show p)
-  
 getPos :: Alex PosInfo
-getPos = Alex $ \ s -> return (s , alexPos2txt(alex_pos s))
+getPos = Alex $ \ s -> return (s , pos2Txt(alex_pos s))
+
+getPos_1 :: Alex PosInfo
+getPos_1 = Alex $ \ s -> return (s , pos2Txt_1(alex_pos s))
   
 posInfo :: PosInfo
 posInfo = pack "0"
@@ -310,9 +314,17 @@ processDirectory :: Text -> Text -> (Text -> Text) -> IO ()
 processDirectory inputDir outputDir transformation = 
   let outD = unpack outputDir  in
   let inD  = unpack inputDir   in do
-    files    <- listDirectory inD >>= filterM doesFileExist
+    files    <- listDirectory inD  >>= filterM (doesFileExist . (++) inD)
     results  <- mapM (liftM (unpack . transformation . pack) . readFile . (++) inD ) files
     mapM_ (uncurry writeFile) (zip (map ((++) outD) files) results)
+
+processFile :: Text -> (Text -> Text) -> Text -> IO ()
+processFile outputDir transformation filePath =
+  let outD  = unpack outputDir  in
+  let fileP = unpack filePath   in
+  let fileN = unpack $ snd $ breakOnEnd (pack "/") filePath in do
+    result <- readFile fileP
+    writeFile (outD ++ fileN) (unpack $ transformation $ pack result)
 
 main :: IO ()
 main = processDirectory (pack "test/tests/") (pack "results/result_") parseTxt2

@@ -1,0 +1,5 @@
+module not.
+
+import false.
+
+Not ◂ ★ ➔ ★ = λ f : ★ . f ➔ False .

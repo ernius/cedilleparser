@@ -1,4 +1,4 @@
-module true.
+module True .
 
 True ◂ ★ = ∀ X : ★ . X ➔ X .
 

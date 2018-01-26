@@ -55,7 +55,7 @@ fold ◂ ∀ F : ★ ➔ ★ . ∀ fm : RecFunctor · F.
          P (dUnfold · F -fm x).1 = 
       Λ F . Λ fm . Λ P . λ palg . λ x . (dUnfold · F -fm x).2 · P palg.
 
-inn ◂ ∀ F : ★ ➔ ★ . ∀ fm : RecFunctor · F. F · (D · F fm) ➔ D · F fm =
+in ◂ ∀ F : ★ ➔ ★ . ∀ fm : RecFunctor · F. F · (D · F fm) ➔ D · F fm =
   Λ F . Λ fm . λ d .
     dFold · F -fm [ in' · F -fm
                      (cast · (F · (D · F fm)) · (F · (C · F))
@@ -65,9 +65,9 @@ inn ◂ ∀ F : ★ ➔ ★ . ∀ fm : RecFunctor · F. F · (D · F fm) ➔ D �
 
 inAlg ◂ ∀ F : ★ ➔ ★ . ∀ fm : RecFunctor · F. Alg · F · (C · F) · (D · F fm) =
   Λ F . Λ fm . 
-    [ β{λ eval . λ p . (inn p)} ,
+    [ β{λ eval . λ p . (in p)} ,
       Λ R . Λ reveal . λ eval . λ p .
-        inn · F -fm (cast · (F · R) · (F · (D · F fm))
+        in · F -fm (cast · (F · R) · (F · (D · F fm))
                      -(fm · R · (D · F fm)
                          (caste · R · (D · F fm) eval.1
                           -(λ r . ρ eval.2 - ρ (rUnfold · F -fm (cast · R · (C · F) -reveal r)).2 - β))) p) ] .

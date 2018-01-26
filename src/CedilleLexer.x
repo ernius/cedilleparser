@@ -20,7 +20,7 @@ $symbols        = [\.\,\_\(\)\{\}\[\]\:\-Π∀λ●ι↑➾➔☆β·≃>Λςχ�
 @var            = $alpha ($alpha | $numpunct)*
 @qvar           = @var (\. @var)+
 @kvar           = 𝒌 ($alpha | $numpunct)*
-@qkvar          = @kvar (\. @var)+   
+@qkvar          = @kvar (\. @var)+
 @fpth           = ($alpha | (\.\.\/)+) ($alpha | $numpunct | \/)*
 
 token :-
@@ -48,7 +48,7 @@ token :-
       <0> @var                                  { mkToken TVar            }
       <0> @qvar					{ mkToken TQvar           }
       <0> @fpth				        { mkToken TFpth           }
-      <0> 𝒌 ($alpha | $numpunct)*               { mkToken TKvar           }
+      <0> @kvar                                 { mkToken TKvar           }
       <0> @qkvar        			{ mkToken TQKvar          }      
       <0> \% 					{ begin comment           }
       <comment> [^\n] 				;
@@ -80,6 +80,10 @@ pos2Txt1 (AlexPn p _ _) = pack (show (p+1))
 -- used for .num
 pos2Txt2 :: AlexPosn -> Text
 pos2Txt2 (AlexPn p _ _) = pack (show (p+2))
+
+-- used for ArgsNil
+pos2Txt_1 :: AlexPosn -> Text
+pos2Txt_1 (AlexPn p _ _) = pack (show (p-1))
 
 tPosTxt :: Token -> Text
 tPosTxt (Token p _) = pos2Txt p
