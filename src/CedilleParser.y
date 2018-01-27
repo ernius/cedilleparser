@@ -296,7 +296,6 @@ parseTxt2 s = case runAlex (unpack s) $ cedilleParser of
                Prelude.Left  s2 -> pack s2
                Prelude.Right r  -> pack $ show r
 
-
 showStart :: Start -> Text
 showStart s = pack (show s)
 
@@ -318,6 +317,9 @@ main = do
 --     results  <- mapM (liftM (unpack . transformation . pack) . readFile . (++) inD ) files
 --     mapM_ (uncurry writeFile) (zip (map ((++) outD) files) results)
 
+-- main :: IO ()
+-- main = processDirectory (pack "test/tests/") (pack "results/result_") parseTxt2
+
 processFile :: Text -> (Text -> Text) -> Text -> IO ()
 processFile outputDir transformation filePath =
   let outD  = unpack outputDir  in
@@ -326,7 +328,5 @@ processFile outputDir transformation filePath =
     result <- readFile fileP
     writeFile (outD ++ fileN) (unpack $ transformation $ pack result)
 
--- main :: IO ()
--- main = processDirectory (pack "test/tests/") (pack "results/result_") parseTxt2
 
 }

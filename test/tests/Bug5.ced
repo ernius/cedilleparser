@@ -7,8 +7,8 @@ bug ◂ ∀ P : Unit ➔ ★ .
       (Π u : Unit. P u) ➔ 
       Π q : Unit .
       P q =  Λ P . λ f . λ q .      
-    let unit' ◂ Unit = q in  
-    let unit'' ◂ Unit = unit' in 
+    [ unit' ◂ Unit = q      ]-  
+    [ unit'' ◂ Unit = unit' ]-
      (f unit'').
 
 
@@ -16,6 +16,6 @@ nobug ◂ ∀ P : Unit ➔ ★ .
       (Π u : Unit. P u) ➔ 
       Π q : Unit .
       P q =  Λ P . λ f . λ q .      
-    let unit' ◂ Unit = q in  
+    [ unit' ◂ Unit = q ]-  
 %   let unit'' ◂ Unit = unit' in 
-    let prf ◂ P unit' = f unit' in prf .
+    [ prf ◂ P unit' = f unit' ]- prf .

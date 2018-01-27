@@ -9,7 +9,7 @@ import this-nat.
 
 Iter ◂ (★ ➔ ★) ➔ Nat ➔ ★ =
   λ F : ★ ➔ ★ . λ n : Nat .
-    ↑ X . (to-cNat n) · X : ((☆ ➔ ☆) ➔ ☆ ➔ ☆)
+    ↑ X . (to-cNat n) · X : ((☆ ➔↑ ☆) ➔↑ ☆ ➔↑ ☆)
           · (λ R : ★ . F · R)
           · False .
 
