@@ -26,8 +26,8 @@ $symbols        = [\.\,\_\(\)\{\}\[\]\:\-Π∀λ●ι↑➾➔☆β·≃>Λςχ�
 token :-
       <0> @proj                                 { mkTokenProj  TProj      }
       <0> $symbols                              { mkToken      TSym       }
-      <0> Πl                                    { mkTokenEmpty TPiLift    }
-      <0> ➔l                                   { mkTokenEmpty TArrowLift }      
+      <0> Π↑                                    { mkTokenEmpty TPiLift    }
+      <0> ➔↑                                   { mkTokenEmpty TArrowLift }      
       <0> ε                                     { mkTokenEmpty TEps       }
       <0> ε\-                                   { mkTokenEmpty TEpsM      }
       <0> εl                                    { mkTokenEmpty TEpsL      }

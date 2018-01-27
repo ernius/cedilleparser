@@ -89,7 +89,7 @@ test_parser_cmd = TestCase (assertEqual "test parser command"
 
 test_parser_liftingtype_str = unlines [
 --  "    Π a : a . a ➔ ☆   "
-    "     a ➔l ☆   "
+    "     a ➔↑ ☆   "
   ]
 
 test_parser_liftingtype = TestCase (assertEqual "test parser lifting type"

@@ -18,7 +18,7 @@ Desc ◂ Nat ➔ ★ = λ n : Nat .
 
 interp ◂ Π n : Nat . Desc n ➔ (Fin n ➔ ★) ➔ ★ ➔ ★ =
   λ n : Nat . λ d : Desc n . λ A : (Fin n ➔ ★) .
-  λ X : ★ . (↑ Z . d · Z : ((☆ ➔l ☆ ➔l ☆) ➔l (☆ ➔l ☆ ➔l ☆) ➔l ☆ ➔l (Fin n ➔l ☆) ➔l ☆ ➔l ☆))
+  λ X : ★ . (↑ Z . d · Z : ((☆ ➔↑ ☆ ➔↑ ☆) ➔↑ (☆ ➔↑ ☆ ➔↑ ☆) ➔↑ ☆ ➔↑ (Fin n ➔↑ ☆) ➔↑ ☆ ➔↑ ☆))
                · Or
                · And
                · True

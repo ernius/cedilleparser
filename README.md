@@ -19,8 +19,6 @@ Makefile/Cabal commands:
  * Rebuild parser info file: `make info`.
  * Running agda test: `make agda-test`.
 
-
-
 ## Must review:
 
 * Reserved words (tokens): 
@@ -30,7 +28,7 @@ Description	          | Symbols
 module system         | import, module, as
 projections           | .0 .1 .. .9
 general               | . , _ ( ) { } [ ] : - Π ∀ λ ● ι ↑ ➾ ➔ ☆ β · ≃ > Λ ς χ ★ ◂ =
-lifting               | Πl ➔l
+lifting               | Π↑ ➔↑
 epsilon               | ε ε- εl εl- εr εr-
 theta                 | θ θ+ θ<
 rho                   | ρ ρ+
@@ -41,7 +39,7 @@ span symbols          | {^ ^}
 Description     | Previous Rule                                                             | Updated Rule
 ----------------|---------------------------------------------------------------------------|----------------
 Equality Type   | `Type -> Term '≃' Term`                                                | `Type -> '{' Term '≃' Term '}'`
-Lifting Type    |	`LiftingType -> 'Π' Bvar ':' Type '.' LiftingType`                 | `LiftingType -> 'Πl' Bvar ':' Type '.' LiftingType`
-Lifting Type    | `LiftingType -> LliftingType  '➔' LiftingType`                      | `LiftingType -> LliftingType  '➔l' LiftingType`
-Lifting Type    | `LiftingType -> Type          '➔' LiftingType`                      | `LiftingType -> Type          '➔l' LiftingType`
-Let/in          |	`'let' DefTermOrType 'in' Term`                                       | `'[' DefTermOrType ']' '-' Term`
+Lifting Type    | `LiftingType -> 'Π' Bvar ':' Type '.' LiftingType`                 | `LiftingType -> 'Π↑' Bvar ':' Type '.' LiftingType`
+Lifting Type    | `LiftingType -> LliftingType  '➔' LiftingType`                      | `LiftingType -> LliftingType  '➔↑' LiftingType`
+Lifting Type    | `LiftingType -> Type          '➔' LiftingType`                      | `LiftingType -> Type          '➔↑' LiftingType`
+Let/in          |	`'let' DefTermOrType 'in' Term`                                     | `'[' DefTermOrType ']' '-' Term`

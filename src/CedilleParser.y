@@ -32,8 +32,8 @@ import Control.Monad
   qkvar      { Token _ (TQKvar _)  }
   fpth       { Token _ (TFpth _)   }
   '.num'     { Token _ (TProj _)   }
-  'Πl'       { Token $$ TPiLift    }
-  '➔l'      { Token $$ TArrowLift }  
+  'Π↑'       { Token $$ TPiLift    }
+  '➔↑'      { Token $$ TArrowLift }  
   'ε'        { Token $$ TEps       }
   'ε-'       { Token $$ TEpsM      }
   'εl'       { Token $$ TEpsL      }
@@ -204,7 +204,7 @@ Type :: { Type }
 --     | '{' Term '≃' Term '}'            { TpEq $2 $4                                                   } -- reduce/reduce conflict with variables and holes in types and terms without brackets
 
 LType :: { Type } 
-      : '↑' var '.' Term ':' LliftingType { Lft (pos2Txt $1) (tPosTxt $2) (tTxt $2) $4 $6 }
+      : '↑' var '.' Term ':' LiftingType  { Lft (pos2Txt $1) (tPosTxt $2) (tTxt $2) $4 $6 }
       | LType   '·' Atype                 { TpApp $1 $3                                   }
       | LType Lterm                       { TpAppt $1 $2                                  }
       | '{' Term '≃' Term '}'            { TpEq $2 $4                                    } -- is it not better here? not require parenthesis in arrow types!
@@ -236,9 +236,9 @@ LKind :: { Kind }
      | kvar  Args                       { KndVar (tPosTxt $1) (tTxt $1) $2             }     
 
 LiftingType :: { LiftingType }
-            : 'Πl' Bvar ':' Type '.' LiftingType   { LiftPi (pos2Txt $1) (tTxt $2) $4 $6 } 
-            | LliftingType  '➔l' LiftingType      { LiftArrow   $1 $3                   }
-            | Type          '➔l' LiftingType      { LiftTpArrow $1 $3                   }
+            : 'Π↑' Bvar ':' Type '.' LiftingType   { LiftPi (pos2Txt $1) (tTxt $2) $4 $6 } 
+            | LliftingType  '➔↑' LiftingType      { LiftArrow   $1 $3                   }
+            | Type          '➔↑' LiftingType      { LiftTpArrow $1 $3                   }
             | LliftingType                         { $1                                  }
 
 LliftingType :: { LiftingType }
