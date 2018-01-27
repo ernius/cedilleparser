@@ -143,7 +143,7 @@ OptTerm :: { OptTerm }
 
 Term :: { Term }
      : Lam Bvar OptClass '.' Term       { Lam (snd $1) (fst $1) (tPosTxt $2) (tTxt $2) $3 $5 }
-     | 'let' DefTermOrType 'in' Term    { Let (pos2Txt $1) $2 $4                             }
+     | '[' DefTermOrType ']' '-' Term   { Let (pos2Txt $1) $2 $5                             }
      | Theta Lterm Lterms               { Theta (snd $1) (fst $1) $2 $3                      }
      | Aterm                            { $1                                                 }
 
