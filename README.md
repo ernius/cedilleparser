@@ -25,7 +25,7 @@ Makefile/Cabal commands:
 
 * Reserved words (tokens): 
 
-description	          | symbols
+Description	          | Symbols
 ----------------------|----------
 module system         | import, module, as
 projections           | .0 .1 .. .9
@@ -38,8 +38,10 @@ span symbols          | {^ ^}
    
 * Syntax Changes: 
 
-	* `Type -> Term '≃' Term` to `Type -> '{' Term '≃' Term '}'`
-	* `LiftingType -> 'Π' Bvar ':' Type '.' LiftingType` to `LiftingType -> 'Πl' Bvar ':' Type '.' LiftingType`
-    * `LiftingType -> LliftingType  '➔' LiftingType` to `LiftingType -> LliftingType  '➔l' LiftingType`
-    * `LiftingType -> Type          '➔' LiftingType` to `LiftingType -> Type          '➔l' LiftingType`
-	* `'let' DefTermOrType 'in' Term` to `'[' DefTermOrType ']' '-' Term`
+Description  | Previous Rule | Updated Rule
+--------------------------------------------
+Equality Type | `Type -> Term '≃' Term` | `Type -> '{' Term '≃' Term '}'`
+Lifting Types |	`LiftingType -> 'Π' Bvar ':' Type '.' LiftingType` | `LiftingType -> 'Πl' Bvar ':' Type '.' LiftingType`
+              |`LiftingType -> LliftingType  '➔' LiftingType` | `LiftingType -> LliftingType  '➔l' LiftingType`
+              |`LiftingType -> Type          '➔' LiftingType` | `LiftingType -> Type          '➔l' LiftingType`
+Let/in        |	`'let' DefTermOrType 'in' Term` | `'[' DefTermOrType ']' '-' Term`
