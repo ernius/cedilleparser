@@ -43,3 +43,16 @@ Lifting Type    | `'Π' Bvar ':' Type '.' LiftingType`                 | `'Π↑
 Lifting Type    | `LliftingType  '➔' LiftingType`                      | `LliftingType  '➔↑' LiftingType`
 Lifting Type    | `Type          '➔' LiftingType`                      | `Type          '➔↑' LiftingType`
 Let/in          | `'let' DefTermOrType 'in' Term`                      | `'[' DefTermOrType ']' '-' Term`
+
+
+* Another grammar change:
+
+Changed `Term -> '{' Term '≃' Term '}'` to `LType -> '{' Term '≃' Term '}'`, so now the following term:
+```
+({ x ≃ x' }) ➔ Q x' ➔ X
+```
+can be written as:
+
+```
+{ x ≃ x' } ➔ Q x' ➔ X
+```
