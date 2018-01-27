@@ -39,7 +39,7 @@ span symbols          | {^ ^}
 * Syntax Changes: 
 
 Description   | Previous Rule                                                 | Updated Rule
------------------------------------------------------------------------------------------------
+--------------|---------------------------------------------------------------|----------------
 Equality Type | `Type -> Term '≃' Term`                                    | `Type -> '{' Term '≃' Term '}'`
 Lifting Types |	`LiftingType -> 'Π' Bvar ':' Type '.' LiftingType`     | `LiftingType -> 'Πl' Bvar ':' Type '.' LiftingType`
               | `LiftingType -> LliftingType  '➔' LiftingType`         | `LiftingType -> LliftingType  '➔l' LiftingType`
