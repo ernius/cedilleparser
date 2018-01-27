@@ -8,7 +8,7 @@ import CedilleLexer hiding (main)
 import Data.Text(Text,pack,unpack,append,breakOnEnd)
 
 import Control.Monad
-import System.Directory
+--import System.Directory
 
 }
 
@@ -303,20 +303,20 @@ showStart s = pack (show s)
 eqStart :: Start -> Start -> Bool
 eqStart = (==)
 
--- main :: IO ()
--- main = do  
---   s <- getContents
---   case parse s of
---     Prelude.Left  errMsg -> putStrLn $ "Error:"             ++ errMsg
---     Prelude.Right res    -> putStrLn $ "Parser successful, AST:" ++ show res
+main :: IO ()
+main = do  
+  s <- getContents
+  case parse s of
+    Prelude.Left  errMsg -> putStrLn $ "Error:"             ++ errMsg
+    Prelude.Right res    -> putStrLn $ "Parser successful, AST:" ++ show res
 
-processDirectory :: Text -> Text -> (Text -> Text) -> IO ()
-processDirectory inputDir outputDir transformation = 
-  let outD = unpack outputDir  in
-  let inD  = unpack inputDir   in do
-    files    <- listDirectory inD  >>= filterM (doesFileExist . (++) inD)
-    results  <- mapM (liftM (unpack . transformation . pack) . readFile . (++) inD ) files
-    mapM_ (uncurry writeFile) (zip (map ((++) outD) files) results)
+-- processDirectory :: Text -> Text -> (Text -> Text) -> IO ()
+-- processDirectory inputDir outputDir transformation = 
+--   let outD = unpack outputDir  in
+--   let inD  = unpack inputDir   in do
+--     files    <- listDirectory inD  >>= filterM (doesFileExist . (++) inD)
+--     results  <- mapM (liftM (unpack . transformation . pack) . readFile . (++) inD ) files
+--     mapM_ (uncurry writeFile) (zip (map ((++) outD) files) results)
 
 processFile :: Text -> (Text -> Text) -> Text -> IO ()
 processFile outputDir transformation filePath =
@@ -326,7 +326,7 @@ processFile outputDir transformation filePath =
     result <- readFile fileP
     writeFile (outD ++ fileN) (unpack $ transformation $ pack result)
 
-main :: IO ()
-main = processDirectory (pack "test/tests/") (pack "results/result_") parseTxt2
+-- main :: IO ()
+-- main = processDirectory (pack "test/tests/") (pack "results/result_") parseTxt2
 
 }

@@ -21,8 +21,8 @@ library
                      , HUnit
                      , unicode-show
                      , text
-                     , unix      >= 2.7.2.2
-                     , directory >= 1.3.1.5
+--                     , unix      >= 2.7.2.2
+--                     , directory >= 1.3.1.5
   build-tools:         alex
                      , happy
   default-language:    Haskell2010
