@@ -44,8 +44,6 @@ token :-
       <0> module                                { mkTokenEmpty TModule    }
       <0> import                                { mkTokenEmpty TImport    }
       <0> as                                    { mkTokenEmpty TAs        }
-      <0> let                                   { mkTokenEmpty TLet       }
-      <0> in                                    { mkTokenEmpty TIn        }
       <0> $white+				;
       <0> @var                                  { mkToken TVar            }
       <0> @qvar					{ mkToken TQvar           }
@@ -130,8 +128,6 @@ data TokenClass =
      |  TRSpan
      |  TImport
      |  TAs
-     |  TLet
-     |  TIn     
      |  TModule
      |  TTheta
      |  TThetaEq
@@ -161,8 +157,6 @@ instance Show TokenClass where
   show (TRSpan)      = "TRSpan"
   show (TImport)     = "TImport"
   show (TAs)         = "TAs"
-  show (TLet)        = "TLet"
-  show (TIn)         = "TIn"
   show (TModule)     = "TModule"
   show (TTheta)      = "TTheta"
   show (TThetaEq)    = "TThetaEq"

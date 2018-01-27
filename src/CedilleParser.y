@@ -43,8 +43,6 @@ import Control.Monad
   'import'   { Token $$ TImport    }
   'module'   { Token $$ TModule    }
   'as'       { Token $$ TAs        }
-  'let'      { Token $$ TLet       }
-  'in'       { Token $$ TIn        }
   '{^'       { Token $$ TLSpan     }
   '^}'       { Token $$ TRSpan     }
   'θ'        { Token $$ TTheta     }
