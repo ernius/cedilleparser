@@ -32,6 +32,8 @@ import Control.Monad
   qkvar      { Token _ (TQKvar _)  }
   fpth       { Token _ (TFpth _)   }
   '.num'     { Token _ (TProj _)   }
+  'Πl'       { Token $$ TPiLift    }
+  '➔l'      { Token $$ TArrowLift }  
   'ε'        { Token $$ TEps       }
   'ε-'       { Token $$ TEpsM      }
   'εl'       { Token $$ TEpsL      }
@@ -236,9 +238,9 @@ LKind :: { Kind }
      | kvar  Args                       { KndVar (tPosTxt $1) (tTxt $1) $2             }     
 
 LiftingType :: { LiftingType }
-            : 'Π' Bvar ':' Type '.' LiftingType    { LiftPi (pos2Txt $1) (tTxt $2) $4 $6 } 
-            | LliftingType  '➔' LiftingType       { LiftArrow   $1 $3                   }
-            | Type          '➔' LiftingType       { LiftTpArrow $1 $3                   }
+            : 'Πl' Bvar ':' Type '.' LiftingType   { LiftPi (pos2Txt $1) (tTxt $2) $4 $6 } 
+            | LliftingType  '➔l' LiftingType      { LiftArrow   $1 $3                   }
+            | Type          '➔l' LiftingType      { LiftTpArrow $1 $3                   }
             | LliftingType                         { $1                                  }
 
 LliftingType :: { LiftingType }

@@ -26,6 +26,8 @@ $symbols        = [\.\,\_\(\)\{\}\[\]\:\-Π∀λ●ι↑➾➔☆β·≃>Λςχ�
 token :-
       <0> @proj                                 { mkTokenProj  TProj      }
       <0> $symbols                              { mkToken      TSym       }
+      <0> Πl                                    { mkTokenEmpty TPiLift    }
+      <0> ➔l                                   { mkTokenEmpty TArrowLift }      
       <0> ε                                     { mkTokenEmpty TEps       }
       <0> ε\-                                   { mkTokenEmpty TEpsM      }
       <0> εl                                    { mkTokenEmpty TEpsL      }
@@ -116,6 +118,8 @@ data TokenClass =
      |  TQKvar String
      |  TSym   String
      |  TProj  String
+     |  TPiLift
+     |  TArrowLift     
      |  TEps
      |  TEpsM
      |  TEpsL
@@ -145,6 +149,8 @@ instance Show TokenClass where
   show (TQKvar s)    = "TQKvar " ++ ushow s
   show (TSym   s)    = "TSym "   ++ ushow s
   show (TProj  s)    = "TProj "  ++ ushow s
+  show (TPiLift)     = "TPiLift"
+  show (TArrowLift)  = "TArrowLift"    
   show (TEps)        = "TEps"
   show (TEpsM)       = "TEpsM"
   show (TEpsL)       = "TEpsL"
