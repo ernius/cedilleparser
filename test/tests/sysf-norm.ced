@@ -15,7 +15,7 @@ Candidat ◂ (trm ➔ ★) ➔ ★ =
 ninterp ◂ (Nat ➔ trm ➔ ★) ➔ tp ➔ (trm ➔ ★) =
   λ R : Nat ➔ trm ➔ ★ . λ T : tp .
     ↑ X . T · (λ _ : tp . trm ➔ X)
-           : ((tp ➔ tp ➔ (trm ➔ ☆) ➔ (trm ➔ ☆) ➔ (trm ➔ ☆)) ➔ (Nat ➔ tp ➔ ((trm ➔ ☆) ➔ (trm ➔ ☆)) ➔ (trm ➔ ☆)) ➔ (Nat ➔ (trm ➔ ☆)) ➔ (trm ➔ ☆))
+           : ((tp ➔↑ tp ➔↑ (trm ➔↑ ☆) ➔↑ (trm ➔↑ ☆) ➔↑ (trm ➔↑ ☆)) ➔↑ (Nat ➔↑ tp ➔↑ ((trm ➔↑ ☆) ➔↑ (trm ➔↑ ☆)) ➔↑ (trm ➔↑ ☆)) ➔↑ (Nat ➔↑ (trm ➔↑ ☆)) ➔↑ (trm ➔↑ ☆))
             · (λ _ : tp . λ _ : tp . λ S1 : (trm ➔ ★) . λ S2 : (trm ➔ ★) . λ t : trm.
 	        And · (Normalizing t) · (Π t' : trm . S1 t' ➔ S2 (app t t')))
 	    · (λ _ : Nat . λ _ : tp . λ S : (trm ➔ ★) ➔ (trm ➔ ★) . λ t : trm .
@@ -59,9 +59,9 @@ reducibility-lem ◂ Π T : tp . ∀ R : (Nat ➔ trm ➔ ★) . (Π i : Nat . C
 		      · (Π t' : trm . (red t' t) ➔ (ninterp · R (forall i T') t'))
 		      (fst ·
 		        (Normalizing t) ·
-			(Π t' : trm . ((red t' t) ➔ (ninterp · (λ x : Nat . ((↑ X . (eqnat x i · (λ _ : Bool . (trm ➔ X))) : ((trm ➔ ☆) ➔ (trm ➔ ☆) ➔ trm ➔ ☆)) · All-normalizing · (R x))) T' t')))
+			(Π t' : trm . ((red t' t) ➔ (ninterp · (λ x : Nat . ((↑ X . (eqnat x i · (λ _ : Bool . (trm ➔ X))) : ((trm ➔↑ ☆) ➔↑ (trm ➔↑ ☆) ➔↑ trm ➔↑ ☆)) · All-normalizing · (R x))) T' t')))
 		        (ih (Λ R . λ cr . cr i)
-			· (λ x : Nat . ↑ X . (eqnat x i) · (λ _ : Bool . trm ➔ X) : ((trm ➔ ☆) ➔ (trm ➔ ☆) ➔ (trm ➔ ☆))
+			· (λ x : Nat . ↑ X . (eqnat x i) · (λ _ : Bool . trm ➔ X) : ((trm ➔↑ ☆) ➔↑ (trm ➔↑ ☆) ➔↑ (trm ➔↑ ☆))
 			                                                         · All-normalizing · (R x))
 			  (λ x . θ+ (eqnat x i) (λ u . λ t . λ pf2 . all-normalizing-red-lem t pf2) (λ u . cr i))
                           t

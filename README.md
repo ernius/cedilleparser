@@ -4,7 +4,7 @@ Dependant typed programming language (called Cedille) parser developed in Haskel
 
 ## Project details
 
-Source code:
+### Source code:
  * Lexer  [src/CedilleLexer.x](src/CedilleLexer.x)
  * Parser [src/CedilleParser.y](src/CedilleParser.y)
 
@@ -12,7 +12,7 @@ Some working examples tested in [test](test) project sub folder.
 
 Haskell parser exported to Agda. Haskell AST datatype ([src/CedilleTypes.hs](src/CedilleTypes.agda)) export to Agda AST datatype ([src/cedille-types.agda](src/cedille-types.agda)), and minimal example calling the Haskell's parser from Agda ([src/test.agda](src/test.agda)).
 
-Makefile/Cabal commands:
+### Makefile/Cabal commands:
  * Build: `cabal build`.
  * Running tests: `cabal test` or `make tests`.
  * Running tests in debug mode: `make tests-debug`.
@@ -36,10 +36,10 @@ span symbols          | {^ ^}
    
 * Syntax Changes: 
 
-Description     | Previous Rule                                                             | Updated Rule
-----------------|---------------------------------------------------------------------------|----------------
-Equality Type   | `Type -> Term '≃' Term`                                                | `Type -> '{' Term '≃' Term '}'`
-Lifting Type    | `LiftingType -> 'Π' Bvar ':' Type '.' LiftingType`                 | `LiftingType -> 'Π↑' Bvar ':' Type '.' LiftingType`
-Lifting Type    | `LiftingType -> LliftingType  '➔' LiftingType`                      | `LiftingType -> LliftingType  '➔↑' LiftingType`
-Lifting Type    | `LiftingType -> Type          '➔' LiftingType`                      | `LiftingType -> Type          '➔↑' LiftingType`
-Let/in          |	`'let' DefTermOrType 'in' Term`                                     | `'[' DefTermOrType ']' '-' Term`
+Description     | Previous Rule                                            | Updated Rule
+----------------|----------------------------------------------------------|----------------
+Equality Type   | `Term '≃' Term`                                        | `'{' Term '≃' Term '}'`
+Lifting Type    | `'Π' Bvar ':' Type '.' LiftingType`                 | `'Π↑' Bvar ':' Type '.' LiftingType`
+Lifting Type    | `LliftingType  '➔' LiftingType`                      | `LliftingType  '➔↑' LiftingType`
+Lifting Type    | `Type          '➔' LiftingType`                      | `Type          '➔↑' LiftingType`
+Let/in          | `'let' DefTermOrType 'in' Term`                      | `'[' DefTermOrType ']' '-' Term`
