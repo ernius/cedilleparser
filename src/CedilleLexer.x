@@ -10,7 +10,7 @@ import Data.Text(Text,pack)
 
 %wrapper "monadUserState"
 
-$alpha		= [a-zA-Z]
+$alpha		= [a-zA-Zα-ωΑ-Ω]
 $numone		= 0-9
 $numpunct	= [$numone\-\~\#\_\']   -- is quote equals to ' ?
 $symbols        = [\.\,\_\(\)\{\}\[\]\:\-Π∀λ●ι↑➾➔☆β·≃>Λςχ★◂=]

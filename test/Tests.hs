@@ -15,21 +15,22 @@ import Data.Text (Text, pack)
 removeLexerPositions :: Either a [Token] -> Either a [TokenClass]
 removeLexerPositions = right (map (\ (Token _ tc) -> tc))
 
-test_lexer_str = "aaa"
+test_lexer_str = "αβγδ" -- greek letters
 
 test_lexer = TestCase (assertEqual "test lexer 0"
-                        (removeLexerPositions (scanner test_lexer_str))
-                        (Prelude.Right [TVar "aaa"]))
+                        (Prelude.Right [TVar "αβγδ"])
+                        (removeLexerPositions (scanner test_lexer_str)))
+                        
 
 test_parser_str = unlines [
   "import ../hello/world . %comments",
   "import module . ",
   "%comments 2 ",
-  "module Test . "
+  "module αβγδ . "
   ]
 
 test_parser_module = TestCase (assertEqual "test parser 0"
-                               (Prelude.Right (File "0" ImportsStart "Test" ParamsNil CmdsStart "34"))
+                               (Prelude.Right (File "0" ImportsStart "αβγδ" ParamsNil CmdsStart "34"))
                                (runAlex test_parser_str $ cedilleParser))
 
 -- test_atype_hole_str = "  ●"
@@ -64,13 +65,13 @@ test_parser_term = TestCase (assertEqual "test parser term"
                                (runAlex test_parser_term_str $ term))
 
 test_parser_deftermtype_str = unlines [
-    "cZ ◂ cNat = Λ X . λ f . λ a . a  " ,
+    "cZ ◂ cNat = Λ X . λ f . λ α . α  " ,
 --    "cS ◂ X ➔ X = a "  ,
     ""
   ]
 
 test_parser_deftermtype = TestCase (assertEqual "test parser definition"
-                                   (Prelude.Right (DefTerm "0" "cZ" (Type (TpVar "5" "cNat")) (Lam "12" ErasedLambda "14" "X" NoClass (Lam "18" KeptLambda "20" "f" NoClass (Lam "24" KeptLambda "26" "a" NoClass (Var "30" "a"))))))
+                                   (Prelude.Right (DefTerm "0" "cZ" (Type (TpVar "5" "cNat")) (Lam "12" ErasedLambda "14" "X" NoClass (Lam "18" KeptLambda "20" "f" NoClass (Lam "24" KeptLambda "26" "α" NoClass (Var "30" "α"))))))
                                 (runAlex test_parser_deftermtype_str $ deftermtype))
 
 test_parser_cmd_str = unlines [
