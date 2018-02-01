@@ -27,7 +27,7 @@ Description	          | Symbols
 ----------------------|----------
 module system         | import, module, as
 projections           | .0 .1 .. .9
-general               | . , _ ( ) { } [ ] : - Π ∀ λ ● ι ↑ ➾ ➔ ☆ β · ≃ > Λ ς χ ★ ◂ =
+general               | . , _ ( ) { } [ ] : - Π ∀ λ ● ι ↑ ➾ ➔ ☆ β · ≃ > Λ ς χ φ ★ ◂ =
 lifting               | Π↑ ➔↑
 epsilon               | ε ε- εl εl- εr εr-
 theta                 | θ θ+ θ<
@@ -39,7 +39,6 @@ in-line comments      | --
 
    
 * Syntax Changes: 
-
 
 
 Description     | Previous Rule                                            | Updated Rule
