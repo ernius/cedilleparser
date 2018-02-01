@@ -32,7 +32,7 @@ lifting               | Π↑ ➔↑
 epsilon               | ε ε- εl εl- εr εr-
 theta                 | θ θ+ θ<
 rho                   | ρ ρ+
-kappa vars            | 𝒌*variable$
+kappa vars            | 𝒌*variable*
 span symbols          | {^ ^}
 multi-line comments   | {- -}
 in-line comments      | --
