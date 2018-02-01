@@ -59,7 +59,9 @@ Let/in          | `'let' DefTermOrType 'in' Term`                      | `'[' De
 ```
 ({ x ≃ x' }) ➔ Q x' ➔ X
 ```
-	can be written as:
+
+	  can be written as:
+
 
 ```
 { x ≃ x' } ➔ Q x' ➔ X
