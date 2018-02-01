@@ -50,9 +50,12 @@ token :-
       <0> @var                                  { mkToken TVar            }
       <0> @qvar					{ mkToken TQvar           }
       <0> @fpth				        { mkToken TFpth           }
-      <0> \% 					{ begin comment           }
-      <comment> [^\n] 				;
+      <0> \-\- 					{ begin comment           }
+      <0> \{\- 					{ begin commentMultiLines }      
+      <comment> . 				;
       <comment> \n				{ begin 0                 }
+      <commentMultiLines> \-\}			{ begin 0                 }
+      <commentMultiLines> . | \n		;      
 
 {
 
