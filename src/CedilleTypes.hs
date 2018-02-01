@@ -133,11 +133,12 @@ data Term =
      | Chi PosInfo MaybeAtype Term
      | Epsilon PosInfo LeftRight MaybeMinus Term
      | Hole PosInfo
-     | IotaPair PosInfo Term Term OptTerm PosInfo
+     | IotaPair PosInfo Term Term PosInfo
      | IotaProj Term Num PosInfo
      | Lam PosInfo Lam PosInfo Bvar OptClass Term
      | Let PosInfo DefTermOrType Term
      | Parens PosInfo Term PosInfo
+     | Phi PosInfo Term Term Term PosInfo
      | Rho PosInfo Rho Term Term
      | Sigma PosInfo Term
      | Theta PosInfo Theta Term Lterms

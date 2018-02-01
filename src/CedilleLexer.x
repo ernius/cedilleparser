@@ -12,8 +12,8 @@ import Data.Text(Text,pack)
 
 $alpha		= [a-zA-Zα-ωΑ-Ω]
 $numone		= 0-9
-$numpunct	= [$numone\-\~\#\_\']   -- is quote equals to ' ?
-$symbols        = [\.\,\_\(\)\{\}\[\]\:\-Π∀λ●ι↑➾➔☆β·≃>Λςχ★◂=]
+$numpunct	= [$numone\-\~\#\_\']  
+$symbols        = [\.\,\_\(\)\{\}\[\]\:\-Π∀λ●ι↑➾➔☆β·≃>Λςχφ★◂=]
 
 @num            = $numone+
 @proj           = \. @num

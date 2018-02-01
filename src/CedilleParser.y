@@ -73,6 +73,7 @@ import Control.Monad
   '-'        { Token $$ (TSym "-") }
   'ς'        { Token $$ (TSym "ς") }
   'χ'        { Token $$ (TSym "χ") }
+  'φ'        { Token $$ (TSym "φ") }
   '➾'       { Token $$ (TSym "➾") }
   '➔'       { Token $$ (TSym "➔") }
   '≃'        { Token $$ (TSym "≃") }
@@ -161,6 +162,7 @@ Lterm :: { Term }
       | 'εr-' Lterm                     { Epsilon (pos2Txt $1) CedilleTypes.Right EpsHanf $2  }
       | 'ς' Lterm                       { Sigma (pos2Txt $1) $2                               }
       | Rho Lterm      '-' Lterm        { Rho (snd $1) (fst $1) $2 $4                         }
+      | 'φ' Lterm      '-' Lterm '{' Term '}' { Phi (pos2Txt $1) $2 $4 $6 (pos2Txt1 $5)       }
       | 'χ' MaybeAtype '-' Lterm        { Chi (pos2Txt $1) $2 $4                              }
       | Pterm                           { $1                                                  }
 
@@ -168,7 +170,7 @@ Pterm :: { Term }
       : Qvar                            { Var (tPosTxt $1) (tTxt $1)                  }
       | '(' Term ')'                    { Parens (pos2Txt $1) $2 (pos2Txt1 $3)        } 
       | Pterm '.num'                    { IotaProj $1 (tTxt $2) (tPosTxt2 $2)         } -- shift-reduce conflict with the point of end of command (solution: creates a token '.num')
-      | '[' Term ',' Term OptTerm ']'   { IotaPair (pos2Txt $1) $2 $4 $5 (pos2Txt1 $6)}
+      | '[' Term ',' Term ']'           { IotaPair (pos2Txt $1) $2 $4 (pos2Txt1 $5)}
       | '●'                             { Hole (pos2Txt $1)                           }      
 
 MaybeAtype :: { MaybeAtype }
