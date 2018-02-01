@@ -45,11 +45,11 @@ token :-
       <0> import                                { mkTokenEmpty TImport    }
       <0> as                                    { mkTokenEmpty TAs        }
       <0> $white+				;
+      <0> @kvar                                 { mkToken TKvar           }
+      <0> @qkvar        			{ mkToken TQKvar          }      
       <0> @var                                  { mkToken TVar            }
       <0> @qvar					{ mkToken TQvar           }
       <0> @fpth				        { mkToken TFpth           }
-      <0> @kvar                                 { mkToken TKvar           }
-      <0> @qkvar        			{ mkToken TQKvar          }      
       <0> \% 					{ begin comment           }
       <comment> [^\n] 				;
       <comment> \n				{ begin 0                 }
