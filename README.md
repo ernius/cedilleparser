@@ -56,11 +56,12 @@ Let/in          | `'let' DefTermOrType 'in' Term`                      | `'[' De
 	* Greek letters in variables.
 
 	* Changed `Term -> '{' Term '≃' Term '}'` to `LType -> '{' Term '≃' Term '}'`, so now the following term:
+
 ```
 ({ x ≃ x' }) ➔ Q x' ➔ X
 ```
 
-	  can be written as:
+can be written as:
 
 
 ```
