@@ -86,7 +86,7 @@ import System.Environment
 %%
   
 Start :: { Start }
-      : Imports 'module' Qvar Params '.' Cmds LineNo { File (pack "0") $1 (tTxt $3) $4 $6 $7 }  
+      : Imports 'module' Qvar Params '.' Cmds LineNo { File (pack "1") $1 (tTxt $3) $4 $6 $7 }  
 
 Imprt :: { Imprt }
       : 'import' Fpth OptAs Args '.'    { Import (pos2Txt $1) (tTxt $2) $3 $4 (pos2Txt1 $5) }
