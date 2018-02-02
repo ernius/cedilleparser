@@ -23,43 +23,44 @@ Haskell parser exported to Agda. Haskell AST datatype ([src/CedilleTypes.hs](src
 
 * Reserved words (tokens): 
 
-Description	          | Symbols
-----------------------|----------
-module system         | import, module, as
-projections           | .0 .1 .. .9
-general               | . , _ ( ) { } [ ] : - Π ∀ λ ● ι ↑ ➾ ➔ ☆ β · ≃ > Λ ς χ φ ★ ◂ =
-lifting               | Π↑ ➔↑
-epsilon               | ε ε- εl εl- εr εr-
-theta                 | θ θ+ θ<
-rho                   | ρ ρ+
-kappa vars            | 𝒌*variable*
-span symbols          | {^ ^}
-multi-line comments   | {- -}
-in-line comments      | --
+Description	                 | Reserved Words
+-----------------------------|----------
+module system				 | import, module, as
+projections					 | .0 .1 ... .9
+general symbols				 | . , _ : · ≃ > - ◂ = ∀ ● ↑ ➾ ➔ ☆ ★ ( ) { } [ ] 
+lifting symbols				 | Π↑ ➔↑
+epsilon						 | ε ε- εl εl- εr εr-
+theta						 | θ θ+ θ<
+rho							 | ρ ρ+
+other greek letters			 | β ι Λ λ χ φ Π ς
+starting with kappa vars.	 | 𝒌*variable*
+span symbols				 | {^ ^}
+multi-line comments			 | {- -}
+in-line comments			 | --
 
    
 * Syntax Changes: 
 
 
-Description     | Previous Rule                                            | Updated Rule
-----------------|----------------------------------------------------------|----------------
+Description     | Previous Rule                                           | Updated Rule
+----------------|---------------------------------------------------------|----------------
 Equality Type   | `Term '≃' Term`                                        | `'{' Term '≃' Term '}'`
-Lifting Type    | `'Π' Bvar ':' Type '.' LiftingType`                 | `'Π↑' Bvar ':' Type '.' LiftingType`
+Lifting Type    | `'Π' Bvar ':' Type '.' LiftingType`                  | `'Π↑' Bvar ':' Type '.' LiftingType`
 Lifting Type    | `LliftingType  '➔' LiftingType`                      | `LliftingType  '➔↑' LiftingType`
 Lifting Type    | `Type          '➔' LiftingType`                      | `Type          '➔↑' LiftingType`
 Let/in          | `'let' DefTermOrType 'in' Term`                      | `'[' DefTermOrType ']' '-' Term`
 
 
-* Syntax Updated
+* Syntax Updates.
 
 	* Added phi rule: `Lterm -> 'φ' Lterm '-' Lterm '{' Term '}'`
 	
-	* Changed pair rule: `Pterm -> '[' Term ',' Term ']'` (before `Pterm -> '[' Term ',' Term OptTerm ']'`
+	* Changed pair rule: `Pterm -> '[' Term ',' Term ']'` (before `Pterm -> '[' Term ',' Term OptTerm ']'`)
 	
 
 * Another grammar change:
 
-	* Greek letters in variables.
+	* Allowed greek letters in variables.
 
 	* Changed `Term -> '{' Term '≃' Term '}'` to `LType -> '{' Term '≃' Term '}'`, so now the following term:
 
