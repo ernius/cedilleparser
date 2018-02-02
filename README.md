@@ -50,6 +50,13 @@ Lifting Type    | `Type          '➔' LiftingType`                      | `Type
 Let/in          | `'let' DefTermOrType 'in' Term`                      | `'[' DefTermOrType ']' '-' Term`
 
 
+* Syntax Updated
+
+	* Added phi rule: `Lterm -> 'φ' Lterm '-' Lterm '{' Term '}'`
+	
+	* Changed pair rule: `Pterm -> '[' Term ',' Term ']'` (before `Pterm -> '[' Term ',' Term OptTerm ']'`
+	
+
 * Another grammar change:
 
 	* Greek letters in variables.
