@@ -162,7 +162,7 @@ Lterm :: { Term }
       | 'εr-' Lterm                     { Epsilon (pos2Txt $1) CedilleTypes.Right EpsHanf $2  }
       | 'ς' Lterm                       { Sigma (pos2Txt $1) $2                               }
       | Rho Lterm      '-' Lterm        { Rho (snd $1) (fst $1) $2 $4                         }
-      | 'φ' Lterm      '-' Lterm '{' Term '}' { Phi (pos2Txt $1) $2 $4 $6 (pos2Txt1 $5)       }
+      | 'φ' Lterm      '-' Lterm '{' Term '}' { Phi (pos2Txt $1) $2 $4 $6 (pos2Txt1 $7)       }
       | 'χ' MaybeAtype '-' Lterm        { Chi (pos2Txt $1) $2 $4                              }
       | Pterm                           { $1                                                  }
 
