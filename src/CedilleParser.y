@@ -8,6 +8,7 @@ import CedilleLexer hiding (main)
 import Data.Text(Text,pack,unpack,append,breakOnEnd)
 
 import Control.Monad
+import System.Environment
 --import System.Directory
 
 }
@@ -304,12 +305,20 @@ showStart s = pack (show s)
 eqStart :: Start -> Start -> Bool
 eqStart = (==)
 
+-- main :: IO ()
+-- main = do  
+--   s <- getContents
+--   case parse s of
+--     Prelude.Left  errMsg -> putStrLn $ "Error:"             ++ errMsg
+--     Prelude.Right res    -> putStrLn $ "Parser successful, AST:" ++ show res
+
 main :: IO ()
 main = do  
-  s <- getContents
-  case parse s of
-    Prelude.Left  errMsg -> putStrLn $ "Error:"             ++ errMsg
-    Prelude.Right res    -> putStrLn $ "Parser successful, AST:" ++ show res
+  [ file ] <- getArgs
+  cnt      <- readFile file
+  case parse cnt of
+    Prelude.Left  errMsg -> writeFile (file ++ "-result") errMsg
+    Prelude.Right res    -> writeFile (file ++ "-result") (show res)
 
 -- processDirectory :: Text -> Text -> (Text -> Text) -> IO ()
 -- processDirectory inputDir outputDir transformation = 
