@@ -249,16 +249,17 @@ data term where
   Chi : posinfo → maybeAtype → term → term
   Epsilon : posinfo → leftRight → maybeMinus → term → term
   Hole : posinfo → term
-  IotaPair : posinfo → term → term → optTerm → posinfo → term
+  IotaPair : posinfo → term → term → posinfo → term
   IotaProj : term → num → posinfo → term
   Lam : posinfo → lam → posinfo → bvar → optClass → term → term
   Let : posinfo → defTermOrType → term → term
   Parens : posinfo → term → posinfo → term
+  Phi : posinfo → term → term → term → posinfo → term  
   Rho : posinfo → rho → term → term → term
   Sigma : posinfo → term → term
   Theta : posinfo → theta → term → lterms → term
   Var : posinfo → qvar → term
-{-# COMPILED_DATA term CedilleTypes.Term CedilleTypes.App CedilleTypes.AppTp CedilleTypes.Beta CedilleTypes.Chi CedilleTypes.Epsilon CedilleTypes.Hole CedilleTypes.IotaPair CedilleTypes.IotaProj CedilleTypes.Lam CedilleTypes.Let CedilleTypes.Parens CedilleTypes.Rho CedilleTypes.Sigma CedilleTypes.Theta CedilleTypes.Var #-}    
+{-# COMPILED_DATA term CedilleTypes.Term CedilleTypes.App CedilleTypes.AppTp CedilleTypes.Beta CedilleTypes.Chi CedilleTypes.Epsilon CedilleTypes.Hole CedilleTypes.IotaPair CedilleTypes.IotaProj CedilleTypes.Lam CedilleTypes.Let CedilleTypes.Parens CedilleTypes.Phi CedilleTypes.Rho CedilleTypes.Sigma CedilleTypes.Theta CedilleTypes.Var #-}    
 
 data theta where 
   Abstract : theta
