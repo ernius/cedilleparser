@@ -75,14 +75,14 @@ tPos :: Token -> AlexPosn
 tPos (Token p _) = p
 
 pos2Txt :: AlexPosn -> Text
-pos2Txt (AlexPn p _ _) = pack (show p)
+pos2Txt (AlexPn p _ _) = pack (show (p+1))
 
 pos2Txt1 :: AlexPosn -> Text
-pos2Txt1 (AlexPn p _ _) = pack (show (p+1))
+pos2Txt1 (AlexPn p _ _) = pack (show (p+2))
 
 -- used for .num
 pos2Txt2 :: AlexPosn -> Text
-pos2Txt2 (AlexPn p _ _) = pack (show (p+2))
+pos2Txt2 (AlexPn p _ _) = pack (show (p+3))
 
 -- used for ArgsNil
 pos2Txt_1 :: AlexPosn -> Text
