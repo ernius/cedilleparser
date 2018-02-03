@@ -25,7 +25,7 @@ test_comments_str = unlines [
 
 test_lexer_comments = TestCase (assertEqual "test lexer comments "
                         (C.File (C.Entity (C.EntityComment "42" "98") (C.Entity (C.EntityComment "127" "140") C.EndEntity)))
-                        (C.scanComments test_comments_str))
+                        (C.scanComments (pack test_comments_str)))
   
 
 removeLexerPositions :: Either a [Token] -> Either a [TokenClass]

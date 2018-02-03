@@ -4,6 +4,7 @@ CedilleParser
 results/*
 src/CedilleParser.hs
 src/CedilleLexer.hs
+src/CedilleCommentsLexer.hs
 *.agdai
 *.hi
 *.o
