@@ -7,6 +7,7 @@ Dependant typed programming language (called Cedille) parser developed in Haskel
 ### Source code:
  * Lexer  [src/CedilleLexer.x](src/CedilleLexer.x)
  * Parser [src/CedilleParser.y](src/CedilleParser.y)
+ * Comments Lexer  [src/CedilleCommentsLexer.x](src/CedilleCommentsLexer.x)
 
 Some working examples tested in [test](test) project sub folder.
 
@@ -37,10 +38,8 @@ starting with kappa vars.	 | 𝒌*variable*
 span symbols				 | {^ ^}
 multi-line comments			 | {- -}
 in-line comments			 | --
-
    
 * Syntax Changes: 
-
 
 Description     | Previous Rule                                           | Updated Rule
 ----------------|---------------------------------------------------------|----------------
@@ -74,3 +73,5 @@ can be written as:
 ```
 { x ≃ x' } ➔ Q x' ➔ X
 ```
+
+* Added comments scanner.
