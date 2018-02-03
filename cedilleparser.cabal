@@ -16,6 +16,7 @@ library
   exposed-modules:     CedilleLexer
                      , CedilleParser
                      , CedilleTypes
+                     , CedilleCommentsLexer
   build-depends:       base >=4.9 && <4.10 
                      , array               
                      , HUnit
