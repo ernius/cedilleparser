@@ -284,7 +284,7 @@ lexer :: (Token -> Alex a) -> Alex a
 lexer f = alexMonadScan >>= f  
   
 parseError :: Token -> Alex a
-parseError (Token (AlexPn p _ _) t) = alexError $ show p
+parseError (Token (AlexPn p _ _) t) = alexError $ show (p + 1)
 
 parse :: String -> Either String Start
 parse s = runAlex s $ cedilleParser 
