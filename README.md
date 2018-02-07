@@ -61,7 +61,7 @@ Let/in          | `'let' DefTermOrType 'in' Term`                      | `'[' De
 
 	* Allowed greek letters in variables.
 
-	* Changed `Term -> '{' Term '≃' Term '}'` to `LType -> '{' Term '≃' Term '}'`, so now the following term:
+	* Changed `Term -> '{' Term '≃' Term '}'` to `AType -> '{' Term '≃' Term '}'`, so now the following term:
 
 ```
 ({ x ≃ x' }) ➔ Q x' ➔ X
@@ -73,5 +73,18 @@ can be written as:
 ```
 { x ≃ x' } ➔ Q x' ➔ X
 ```
+
+and
+```
+Lte ◂ Nat ➔ Nat ➔ ★ = λ n : Nat . λ m : Nat . Sum · (Lt n m) · ( {n ≃ m} ) .
+``
+
+can be written as:
+
+```
+Lte ◂ Nat ➔ Nat ➔ ★ = λ n : Nat . λ m : Nat . Sum · (Lt n m) · {n ≃ m}  .
+```
+
+However, in this last example emacs navegation gets wrong, we should add position information to TpEq constructor, in the AST.
 
 * Added comments scanner.
